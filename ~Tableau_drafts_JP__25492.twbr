@@ -1,0 +1,2557 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20231.23.1011.0410                               -->
+<workbook original-version='18.1' source-build='2023.1.7 (20231.23.1011.0410)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AccessibleZoneTabOrder.true...AccessibleZoneTabOrder />
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <IntuitiveSorting />
+    <IntuitiveSorting_SP2 />
+    <_.fcp.Layers.true...Layers />
+    <MapboxVectorStylesAndLayers />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SetMembershipControl />
+    <SheetIdentifierTracking />
+    <SortTagCleanup />
+    <WindowsPersistSimpleIdentifiers />
+    <WorksheetBackgroundTransparency />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <_.fcp.AnimationOnByDefault.false...style>
+    <_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule element='animation'>
+      <_.fcp.AnimationOnByDefault.false...format attr='animation-on' value='ao-on' />
+    </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
+  </_.fcp.AnimationOnByDefault.false...style>
+  <datasources>
+    <datasource caption='projects+' inline='true' name='federated.1il29q2077y9av10h0tpu07vs575' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='projects' name='textscan.0d4hwtg1qoyd8m14c0wed1f5iw5n'>
+            <connection class='textscan' directory='C:/Users/Juliane/Documents/GitHub/fundraising_social_working_repo' filename='projects.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='textscan.0d4hwtg1qoyd8m14c0wed1f5iw5n' name='projects.csv' table='[projects#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='integer' name='project_id' ordinal='0' />
+            <column datatype='string' name='title' ordinal='1' />
+            <column datatype='string' name='founder' ordinal='2' />
+            <column datatype='string' name='location' ordinal='3' />
+            <column datatype='integer' name='year' ordinal='4' />
+            <column datatype='real' name='funding_goal' ordinal='5' />
+            <column datatype='integer' name='stretch_goal_no_yes' ordinal='6' />
+            <column datatype='real' name='funding_goal_stretch_point' ordinal='7' />
+            <column datatype='real' name='relative_stretch_goal' ordinal='8' />
+            <column datatype='real' name='funding_raised' ordinal='9' />
+            <column datatype='real' name='percentage_of_goal' ordinal='10' />
+            <column datatype='real' name='percentage_of_goal_stretch' ordinal='11' />
+            <column datatype='integer' name='number_of_supporters' ordinal='12' />
+            <column datatype='integer' name='word_count_description' ordinal='13' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation type='collection'>
+          <relation connection='textscan.0d4hwtg1qoyd8m14c0wed1f5iw5n' name='projects.csv' table='[projects#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='project_id' ordinal='0' />
+              <column datatype='string' name='title' ordinal='1' />
+              <column datatype='string' name='founder' ordinal='2' />
+              <column datatype='string' name='location' ordinal='3' />
+              <column datatype='integer' name='year' ordinal='4' />
+              <column datatype='real' name='funding_goal' ordinal='5' />
+              <column datatype='integer' name='stretch_goal_no_yes' ordinal='6' />
+              <column datatype='real' name='funding_goal_stretch_point' ordinal='7' />
+              <column datatype='real' name='relative_stretch_goal' ordinal='8' />
+              <column datatype='real' name='funding_raised' ordinal='9' />
+              <column datatype='real' name='percentage_of_goal' ordinal='10' />
+              <column datatype='real' name='percentage_of_goal_stretch' ordinal='11' />
+              <column datatype='integer' name='number_of_supporters' ordinal='12' />
+              <column datatype='integer' name='word_count_description' ordinal='13' />
+            </columns>
+          </relation>
+          <relation connection='textscan.0d4hwtg1qoyd8m14c0wed1f5iw5n' name='topic_relationships.csv' table='[topic_relationships#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='project_id' ordinal='0' />
+              <column datatype='integer' name='topic_id' ordinal='1' />
+            </columns>
+          </relation>
+          <relation connection='textscan.0d4hwtg1qoyd8m14c0wed1f5iw5n' name='topics.csv' table='[topics#csv]' type='table'>
+            <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+              <column datatype='integer' name='topic_id' ordinal='0' />
+              <column datatype='string' name='topic' ordinal='1' />
+            </columns>
+          </relation>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <cols>
+          <map key='[founder]' value='[projects.csv].[founder]' />
+          <map key='[funding_goal]' value='[projects.csv].[funding_goal]' />
+          <map key='[funding_goal_stretch_point]' value='[projects.csv].[funding_goal_stretch_point]' />
+          <map key='[funding_raised]' value='[projects.csv].[funding_raised]' />
+          <map key='[location]' value='[projects.csv].[location]' />
+          <map key='[number_of_supporters]' value='[projects.csv].[number_of_supporters]' />
+          <map key='[percentage_of_goal]' value='[projects.csv].[percentage_of_goal]' />
+          <map key='[percentage_of_goal_stretch]' value='[projects.csv].[percentage_of_goal_stretch]' />
+          <map key='[project_id (topic_relationships.csv)]' value='[topic_relationships.csv].[project_id]' />
+          <map key='[project_id]' value='[projects.csv].[project_id]' />
+          <map key='[relative_stretch_goal]' value='[projects.csv].[relative_stretch_goal]' />
+          <map key='[stretch_goal_no_yes]' value='[projects.csv].[stretch_goal_no_yes]' />
+          <map key='[title]' value='[projects.csv].[title]' />
+          <map key='[topic]' value='[topics.csv].[topic]' />
+          <map key='[topic_id (topics.csv)]' value='[topics.csv].[topic_id]' />
+          <map key='[topic_id]' value='[topic_relationships.csv].[topic_id]' />
+          <map key='[word_count_description]' value='[projects.csv].[word_count_description]' />
+          <map key='[year]' value='[projects.csv].[year]' />
+        </cols>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[topic_relationships.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[topics.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>project_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[project_id]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>project_id</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>title</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[title]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>title</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>founder</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[founder]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>founder</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[location]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>location</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>year</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[year]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>year</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>funding_goal</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[funding_goal]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>funding_goal</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>stretch_goal_no_yes</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[stretch_goal_no_yes]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>stretch_goal_no_yes</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>funding_goal_stretch_point</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[funding_goal_stretch_point]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>funding_goal_stretch_point</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>relative_stretch_goal</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[relative_stretch_goal]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>relative_stretch_goal</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>funding_raised</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[funding_raised]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>funding_raised</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>percentage_of_goal</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[percentage_of_goal]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>percentage_of_goal</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>percentage_of_goal_stretch</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[percentage_of_goal_stretch]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>percentage_of_goal_stretch</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>number_of_supporters</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[number_of_supporters]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>number_of_supporters</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>word_count_description</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[word_count_description]</local-name>
+            <parent-name>[projects.csv]</parent-name>
+            <remote-alias>word_count_description</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>project_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[project_id (topic_relationships.csv)]</local-name>
+            <parent-name>[topic_relationships.csv]</parent-name>
+            <remote-alias>project_id</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[topic_relationships.csv_C39FDE871E9D4F79AF39683233D3EB10]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>topic_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[topic_id]</local-name>
+            <parent-name>[topic_relationships.csv]</parent-name>
+            <remote-alias>topic_id</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[topic_relationships.csv_C39FDE871E9D4F79AF39683233D3EB10]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>topic_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[topic_id (topics.csv)]</local-name>
+            <parent-name>[topics.csv]</parent-name>
+            <remote-alias>topic_id</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[topics.csv_9284CF2780BF4141AD5897099040B157]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>topic</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[topic]</local-name>
+            <parent-name>[topics.csv]</parent-name>
+            <remote-alias>topic</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[topics.csv_9284CF2780BF4141AD5897099040B157]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Rank' datatype='integer' name='[Calculation_1793840049344544769]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='index()'>
+          <table-calc ordering-type='Rows' />
+        </calculation>
+      </column>
+      <column aggregation='None' caption='Funding Raised (bin)' datatype='integer' name='[Funding Raised (bin)]' role='dimension' type='ordinal'>
+        <calculation class='bin' decimals='4' formula='[funding_raised]' peg='0' size='10000' />
+      </column>
+      <_.fcp.ObjectModelTableType.true...column caption='projects.csv' datatype='table' name='[__tableau_internal_object_id__].[projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='topic_relationships.csv' datatype='table' name='[__tableau_internal_object_id__].[topic_relationships.csv_C39FDE871E9D4F79AF39683233D3EB10]' role='measure' type='quantitative' />
+      <_.fcp.ObjectModelTableType.true...column caption='topics.csv' datatype='table' name='[__tableau_internal_object_id__].[topics.csv_9284CF2780BF4141AD5897099040B157]' role='measure' type='quantitative' />
+      <column caption='Founder' datatype='string' name='[founder]' role='dimension' type='nominal' />
+      <column caption='Funding Goal' datatype='real' name='[funding_goal]' role='measure' type='quantitative' />
+      <column caption='Funding Goal Stretch Point' datatype='real' name='[funding_goal_stretch_point]' role='measure' type='quantitative' />
+      <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
+      <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+      <column caption='Number Of Supporters' datatype='integer' name='[number_of_supporters]' role='measure' type='quantitative' />
+      <column caption='Percentage Of Goal' datatype='real' name='[percentage_of_goal]' role='measure' type='quantitative' />
+      <column caption='Percentage Of Goal Stretch' datatype='real' name='[percentage_of_goal_stretch]' role='measure' type='quantitative' />
+      <column caption='Project Id (Topic Relationships.Csv)' datatype='integer' name='[project_id (topic_relationships.csv)]' role='dimension' type='ordinal' />
+      <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
+      <column caption='Relative Stretch Goal' datatype='real' name='[relative_stretch_goal]' role='measure' type='quantitative' />
+      <column caption='Stretch Goal No Yes' datatype='integer' name='[stretch_goal_no_yes]' role='measure' type='quantitative' />
+      <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+      <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
+      <column caption='Topic Id (Topics.Csv)' datatype='integer' name='[topic_id (topics.csv)]' role='dimension' type='ordinal' />
+      <column caption='Topic Id' datatype='integer' name='[topic_id]' role='dimension' type='ordinal' />
+      <column caption='Word Count Description' datatype='integer' name='[word_count_description]' role='measure' type='quantitative' />
+      <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+      <column-instance column='[funding_goal]' derivation='Avg' name='[avg:funding_goal:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[percentage_of_goal]' derivation='Avg' name='[avg:percentage_of_goal:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[title]' derivation='Count' name='[cnt:title:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[funding_goal]' derivation='Median' name='[med:funding_goal:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[funding_goal_stretch_point]' derivation='Median' name='[med:funding_goal_stretch_point:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[funding_raised]' derivation='Median' name='[med:funding_raised:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[percentage_of_goal]' derivation='Median' name='[med:percentage_of_goal:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
+      <column-instance column='[funding_goal]' derivation='Median' name='[pcto:med:funding_goal:qk]' pivot='key' type='quantitative'>
+        <table-calc ordering-type='RowInPane' type='PctTotal' />
+      </column-instance>
+      <column-instance column='[funding_goal_stretch_point]' derivation='Median' name='[pcto:med:funding_goal_stretch_point:qk]' pivot='key' type='quantitative'>
+        <table-calc ordering-type='RowInPane' type='PctTotal' />
+      </column-instance>
+      <column-instance column='[funding_raised]' derivation='Median' name='[pcto:med:funding_raised:qk]' pivot='key' type='quantitative'>
+        <table-calc ordering-type='RowInPane' type='PctTotal' />
+      </column-instance>
+      <column-instance aggregation-param='10' column='[funding_raised]' derivation='Percentile' name='[prc10:funding_raised:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[funding_goal]' derivation='Sum' name='[sum:funding_goal:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[funding_goal_stretch_point]' derivation='Sum' name='[sum:funding_goal_stretch_point:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[funding_raised]' derivation='Sum' name='[sum:funding_raised:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[number_of_supporters]' derivation='Sum' name='[sum:number_of_supporters:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[percentage_of_goal]' derivation='Sum' name='[sum:percentage_of_goal:qk]' pivot='key' type='quantitative' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='false' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:topic:nk]' type='palette'>
+            <map to='#499894'>
+              <bucket>&quot;Environment&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Animal Rights&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Community&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Indigenous&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Food&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Disaster Response&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Arts &amp; Culture&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Economic Development&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Media&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Politics&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Health&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Education&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Children &amp; Youth&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Social Enterprise&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Human Rights&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Civic&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[cnt:title:qk]&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[pcto:med:funding_goal:qk]&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk]&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_raised:qk]&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:percentage_of_goal:qk]&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[sum:percentage_of_goal:qk]&quot;</bucket>
+            </map>
+            <map to='#76b7b2'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[prc10:funding_raised:qk]&quot;</bucket>
+            </map>
+            <map to='#76b7b2'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[sum:funding_raised:qk]&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575]&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[pcto:med:funding_raised:qk]&quot;</bucket>
+            </map>
+            <map to='#edc948'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[avg:funding_goal:qk]&quot;</bucket>
+            </map>
+            <map to='#edc948'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal_stretch_point:qk]&quot;</bucket>
+            </map>
+            <map to='#edc948'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[sum:funding_goal:qk]&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk]&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[pcto:med:funding_goal_stretch_point:qk]&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[sum:funding_goal_stretch_point:qk]&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='projects.csv' id='projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071'>
+            <properties context=''>
+              <relation connection='textscan.0d4hwtg1qoyd8m14c0wed1f5iw5n' name='projects.csv' table='[projects#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='project_id' ordinal='0' />
+                  <column datatype='string' name='title' ordinal='1' />
+                  <column datatype='string' name='founder' ordinal='2' />
+                  <column datatype='string' name='location' ordinal='3' />
+                  <column datatype='integer' name='year' ordinal='4' />
+                  <column datatype='real' name='funding_goal' ordinal='5' />
+                  <column datatype='integer' name='stretch_goal_no_yes' ordinal='6' />
+                  <column datatype='real' name='funding_goal_stretch_point' ordinal='7' />
+                  <column datatype='real' name='relative_stretch_goal' ordinal='8' />
+                  <column datatype='real' name='funding_raised' ordinal='9' />
+                  <column datatype='real' name='percentage_of_goal' ordinal='10' />
+                  <column datatype='real' name='percentage_of_goal_stretch' ordinal='11' />
+                  <column datatype='integer' name='number_of_supporters' ordinal='12' />
+                  <column datatype='integer' name='word_count_description' ordinal='13' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+          <object caption='topic_relationships.csv' id='topic_relationships.csv_C39FDE871E9D4F79AF39683233D3EB10'>
+            <properties context=''>
+              <relation connection='textscan.0d4hwtg1qoyd8m14c0wed1f5iw5n' name='topic_relationships.csv' table='[topic_relationships#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='project_id' ordinal='0' />
+                  <column datatype='integer' name='topic_id' ordinal='1' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+          <object caption='topics.csv' id='topics.csv_9284CF2780BF4141AD5897099040B157'>
+            <properties context=''>
+              <relation connection='textscan.0d4hwtg1qoyd8m14c0wed1f5iw5n' name='topics.csv' table='[topics#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='topic_id' ordinal='0' />
+                  <column datatype='string' name='topic' ordinal='1' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+        <relationships>
+          <relationship>
+            <expression op='='>
+              <expression op='[project_id]' />
+              <expression op='[project_id (topic_relationships.csv)]' />
+            </expression>
+            <first-end-point object-id='projects.csv_FFBCE8FCDDEC4C75AD5AA54D599A7071' />
+            <second-end-point object-id='topic_relationships.csv_C39FDE871E9D4F79AF39683233D3EB10' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[topic_id]' />
+              <expression op='[topic_id (topics.csv)]' />
+            </expression>
+            <first-end-point object-id='topic_relationships.csv_C39FDE871E9D4F79AF39683233D3EB10' />
+            <second-end-point object-id='topics.csv_9284CF2780BF4141AD5897099040B157' />
+          </relationship>
+        </relationships>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <mapsources>
+    <mapsource name='Tableau' />
+  </mapsources>
+  <worksheets>
+    <worksheet name='Funding X Country'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
+            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
+            <column-instance column='[funding_raised]' derivation='Sum' name='[sum:funding_raised:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1il29q2077y9av10h0tpu07vs575].[none:location:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1il29q2077y9av10h0tpu07vs575].[sum:funding_raised:qk]' shelf='rows' />
+          </shelf-sorts>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
+            <encodings>
+              <color column='[federated.1il29q2077y9av10h0tpu07vs575].[sum:funding_raised:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='1.5272375345230103' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1il29q2077y9av10h0tpu07vs575].[none:location:nk]</rows>
+        <cols>[federated.1il29q2077y9av10h0tpu07vs575].[sum:funding_raised:qk]</cols>
+      </table>
+      <simple-id uuid='{86FE995C-B1BD-4F6A-8C74-BF604575BA5B}' />
+    </worksheet>
+    <worksheet name='Funding X Year'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontcolor='#000000'>Funding &quot;stretch goal&quot; x funding goal x actual funding raised</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column caption='Funding Goal' datatype='real' name='[funding_goal]' role='measure' type='quantitative' />
+            <column caption='Funding Goal Stretch Point' datatype='real' name='[funding_goal_stretch_point]' role='measure' type='quantitative' />
+            <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
+            <column-instance column='[funding_goal]' derivation='Median' name='[med:funding_goal:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[funding_goal_stretch_point]' derivation='Median' name='[med:funding_goal_stretch_point:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[funding_raised]' derivation='Median' name='[med:funding_raised:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[funding_raised]' derivation='Sum' name='[sum:funding_raised:qk]' pivot='key' type='quantitative' />
+            <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal_stretch_point:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_raised:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal_stretch_point:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[sum:funding_raised:qk]&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' scope='rows' value='US Dollars' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <encodings>
+              <color column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' />
+            </encodings>
+            <trendline enable-confidence-bands='false' enable-instant-analytics='true' enabled='true' exclude-color='false' exclude-intercept='false' fit='linear' />
+            <reference-line axis-column='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' enable-instant-analytics='true' fill-above='false' fill-below='false' formula='confidence' id='refline0' label-type='none' paired-distribution-id='refline1' probability='95' scope='per-pane' show-lines='both' symmetric='false' value-column='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' z-order='1' />
+            <reference-line axis-column='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' enable-instant-analytics='true' formula='average' id='refline1' label-type='automatic' paired-distribution-id='refline0' probability='95' scope='per-pane' value-column='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' z-order='2' />
+            <reference-line axis-column='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' enable-instant-analytics='true' fill-above='false' fill-below='false' formula='confidence' id='refline2' label-type='none' paired-distribution-id='refline3' probability='95' scope='per-pane' show-lines='both' symmetric='false' value-column='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' z-order='3' />
+            <reference-line axis-column='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' enable-instant-analytics='true' formula='average' id='refline3' label-type='automatic' paired-distribution-id='refline2' probability='95' scope='per-pane' value-column='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' z-order='4' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='false' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]</rows>
+        <cols>[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]</cols>
+      </table>
+      <simple-id uuid='{3BF1022A-2878-442B-853B-874AF9E9F7CD}' />
+    </worksheet>
+    <worksheet name='Funding X Year (2)'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
+            <column-instance column='[funding_raised]' derivation='Median' name='[med:funding_raised:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
+            <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='false' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_raised:qk]</rows>
+        <cols>[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]</cols>
+      </table>
+      <simple-id uuid='{59665322-0EDF-4463-810F-1EC3E55CE672}' />
+    </worksheet>
+    <worksheet name='Funding goal + %_raised'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>For which topics could the highest percantag of the funding goal be raised?</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column-instance column='[percentage_of_goal]' derivation='Avg' name='[avg:percentage_of_goal:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[title]' derivation='Count' name='[cnt:title:qk]' pivot='key' type='quantitative' />
+            <column caption='Funding Goal' datatype='real' name='[funding_goal]' role='measure' type='quantitative' />
+            <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
+            <column-instance column='[funding_goal]' derivation='Median' name='[med:funding_goal:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[funding_raised]' derivation='Median' name='[med:funding_raised:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
+            <column caption='Percentage Of Goal' datatype='real' name='[percentage_of_goal]' role='measure' type='quantitative' />
+            <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+            <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[cnt:title:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_raised:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk]' shelf='columns' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='71' />
+            <format attr='font-weight' data-class='total' value='bold' />
+            <format attr='font-size' data-class='total' value='12' />
+            <format attr='text-format' field='[federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk]' value='p0%' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='background-color' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='#ffffff' />
+            <format attr='color' data-class='subtotal' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='#000000' />
+            <format attr='font-weight' data-class='subtotal' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='bold' />
+            <format attr='font-weight' data-class='total' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='normal' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='text-orientation' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='-90' />
+            <format attr='font-weight' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='bold' />
+            <format attr='font-size' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='12' />
+            <format attr='text-format' field='[federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk]' value='p0%' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='3' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' />
+            </encodings>
+            <style>
+              <style-rule element='datalabel'>
+                <format attr='color-mode' value='user' />
+                <format attr='font-size' value='11' />
+                <format attr='color' value='#000000' />
+                <format attr='font-weight' value='bold' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='4' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' />
+            </encodings>
+            <style>
+              <style-rule element='datalabel'>
+                <format attr='color-mode' value='auto' />
+                <format attr='font-size' value='10' />
+                <format attr='font-weight' value='bold' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk] + [federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk])</rows>
+        <cols>[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]</cols>
+      </table>
+      <simple-id uuid='{89E0780C-65B6-47B2-B33E-2E7894D3C691}' />
+    </worksheet>
+    <worksheet name='Funding raised general'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Number of supporters</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column caption='Rank' datatype='integer' name='[Calculation_1793840049344544769]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='index()'>
+                <table-calc ordering-type='Rows' />
+              </calculation>
+            </column>
+            <column-instance column='[title]' derivation='None' name='[none:title:nk]' pivot='key' type='nominal' />
+            <column caption='Number Of Supporters' datatype='integer' name='[number_of_supporters]' role='measure' type='quantitative' />
+            <column-instance column='[number_of_supporters]' derivation='Sum' name='[sum:number_of_supporters:qk]' pivot='key' type='quantitative' />
+            <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_1793840049344544769]' derivation='User' name='[usr:Calculation_1793840049344544769:ok]' pivot='key' type='ordinal'>
+              <table-calc ordering-type='Columns' />
+            </column-instance>
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]'>
+            <groupfilter function='except' user:ui-domain='database' user:ui-enumeration='exclusive' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[none:title:nk]' />
+              <groupfilter function='member' level='[none:title:nk]' member='&quot;SMASH Housing Project&quot;' />
+            </groupfilter>
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]' shelf='rows' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='header'>
+            <format attr='width' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]' value='380' />
+            <format attr='width' field='[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]' value='44' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]' palette='orange_10_0' type='interpolated' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok] / [federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk])</rows>
+        <cols>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</cols>
+        <show-full-range>
+          <column>[federated.1il29q2077y9av10h0tpu07vs575].[Funding Raised (bin)]</column>
+        </show-full-range>
+        <mark-labels>
+          <mark-label id='0' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Switch Your Undies and Change The World&quot;</value>
+                <value>598</value>
+                <value>1</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='1' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Help Beekeepers, Help Bees&quot;</value>
+                <value>513</value>
+                <value>2</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='2' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Colombo Social- Feeding Sydney&apos;s Vulnerable&quot;</value>
+                <value>389</value>
+                <value>3</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='3' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Open Food Network - Building a Better Food System&quot;</value>
+                <value>386</value>
+                <value>4</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='4' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Bring SMAC Sock Monkeys Against Cancer to Life&quot;</value>
+                <value>382</value>
+                <value>5</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='5' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Help women break a football world record!&quot;</value>
+                <value>369</value>
+                <value>6</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='6' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Help The Welcome Centre help the most vulnerable&quot;</value>
+                <value>356</value>
+                <value>7</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='7' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Tender Funerals - A Community Undertaking&quot;</value>
+                <value>344</value>
+                <value>8</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='8' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Help establish an ultra-local food system&quot;</value>
+                <value>332</value>
+                <value>9</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='9' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;The Walt Disney Birthplace Restoration - Phase One&quot;</value>
+                <value>318</value>
+                <value>10</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='10' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Earthworker: A New Hope&quot;</value>
+                <value>317</value>
+                <value>11</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='11' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Dream Without Limits - Empowering Women at Risk&quot;</value>
+                <value>285</value>
+                <value>12</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='12' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Make a Stand&quot;</value>
+                <value>283</value>
+                <value>13</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='13' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Chatloop&quot;</value>
+                <value>281</value>
+                <value>14</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='14' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Kicking cancer&apos;s ass in style&quot;</value>
+                <value>280</value>
+                <value>15</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='15' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;From Found: Ethical Fashion Empowering Women&quot;</value>
+                <value>274</value>
+                <value>16</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='16' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Clinton&apos;s Walk For Justice&quot;</value>
+                <value>274</value>
+                <value>17</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='17' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Might &amp; Mane&quot;</value>
+                <value>256</value>
+                <value>18</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='18' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;RefAid - Humanizando la Frontera Sur&quot;</value>
+                <value>251</value>
+                <value>19</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='19' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Education is Freedom-Nepal&quot;</value>
+                <value>246</value>
+                <value>20</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='20' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Namatjira Project Documentary&quot;</value>
+                <value>244</value>
+                <value>21</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='21' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Help Launch Life-Changing Inclusive Technology&quot;</value>
+                <value>242</value>
+                <value>22</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='22' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;My Underpants RULE&quot;</value>
+                <value>229</value>
+                <value>23</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='23' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Colourathon - Colour for Change!&quot;</value>
+                <value>226</value>
+                <value>24</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='24' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Surf Sock - saving plastic waste from our oceans&quot;</value>
+                <value>223</value>
+                <value>25</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='25' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Kooda: Beyond Waste&quot;</value>
+                <value>214</value>
+                <value>26</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='26' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Raising Awareness of Low Dose Naltrexone&quot;</value>
+                <value>213</value>
+                <value>27</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='27' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Training rural electricians to build solar grids&quot;</value>
+                <value>208</value>
+                <value>28</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='28' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;theotherstraw - turn the tide on plastic pollution&quot;</value>
+                <value>206</value>
+                <value>29</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='29' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;The Warlu Fashion Collection&quot;</value>
+                <value>205</value>
+                <value>30</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+          <mark-label id='30' label-state='on'>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                    <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]</field>
+                  <field>[federated.1il29q2077y9av10h0tpu07vs575].[usr:Calculation_1793840049344544769:ok]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Save the Rhythm Hut&quot;</value>
+                <value>203</value>
+                <value>31</value>
+              </tuple>
+            </tuple-reference>
+          </mark-label>
+        </mark-labels>
+      </table>
+      <simple-id uuid='{515D3BC3-4FC0-44A1-B8F4-31E880F2CC59}' />
+    </worksheet>
+    <worksheet name='Map Topic X Country'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontcolor='#000000'>Map showing number of projects by location and dominant topics</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <mapsources>
+            <mapsource name='Tableau' />
+          </mapsources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column-instance column='[project_id]' derivation='Count' name='[cnt:project_id:qk]' pivot='key' type='quantitative' />
+            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
+            <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[Longitude (generated)]' field-type='quantitative' max='17582892.203769788' min='-15333974.452199366' projection='EPSG:3857' range-type='fixed' scope='cols' type='space' />
+            <encoding attr='space' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[Latitude (generated)]' field-type='quantitative' max='10287963.981803985' min='-8697393.4639656506' projection='EPSG:3857' range-type='fixed' scope='rows' type='space' />
+          </style-rule>
+          <style-rule element='map'>
+            <format attr='washout' value='0.0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='4' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
+            <encodings>
+              <size column='[federated.1il29q2077y9av10h0tpu07vs575].[cnt:project_id:qk]' />
+              <lod column='[federated.1il29q2077y9av10h0tpu07vs575].[none:location:nk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='6.7580051422119141' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1il29q2077y9av10h0tpu07vs575].[Latitude (generated)]</rows>
+        <cols>[federated.1il29q2077y9av10h0tpu07vs575].[Longitude (generated)]</cols>
+      </table>
+      <simple-id uuid='{CEAFAB22-214D-413F-90EC-E81C19BF71F8}' />
+    </worksheet>
+    <worksheet name='Map Topic X Country (2)'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontcolor='#000000'>Map showing number of projects by location and dominant topics</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <mapsources>
+            <mapsource name='Tableau' />
+          </mapsources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
+            <column-instance column='[project_id]' derivation='None' name='[none:project_id:ok]' pivot='key' type='ordinal' />
+            <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[Longitude (generated)]' field-type='quantitative' max='17802762.656796753' min='-16291222.291651111' projection='EPSG:3857' range-type='fixed' scope='cols' type='space' />
+            <encoding attr='space' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[Latitude (generated)]' field-type='quantitative' max='9461490.5080848876' min='-7454463.217848612' projection='EPSG:3857' range-type='fixed' scope='rows' type='space' />
+          </style-rule>
+          <style-rule element='map'>
+            <format attr='washout' value='0.0' />
+          </style-rule>
+        </style>
+        <panes _.fcp.Layers.true...customization-axis='layer'>
+          <_.fcp.Layers.true...pane id='5' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Pie' />
+          </_.fcp.Layers.true...pane>
+          <pane _.fcp.Layers.true...title='Project Id' id='4' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Pie' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
+            <encodings>
+              <lod column='[federated.1il29q2077y9av10h0tpu07vs575].[none:project_id:ok]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='6.7580051422119141' />
+              </style-rule>
+            </style>
+          </pane>
+          <_.fcp.Layers.true...pane id='6' selection-relaxation-option='selection-relaxation-allow' title='Location'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Pie' />
+            <encodings>
+              <lod column='[federated.1il29q2077y9av10h0tpu07vs575].[none:location:nk]' />
+            </encodings>
+          </_.fcp.Layers.true...pane>
+        </panes>
+        <rows>[federated.1il29q2077y9av10h0tpu07vs575].[Latitude (generated)]</rows>
+        <cols>[federated.1il29q2077y9av10h0tpu07vs575].[Longitude (generated)]</cols>
+      </table>
+      <simple-id uuid='{80EE14D3-CEF5-46E9-84EE-5F6C53CAA536}' />
+    </worksheet>
+    <worksheet name='Projects by topic + %_raised'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Which topics achieved the highest percentages of their goals? </run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column-instance column='[percentage_of_goal]' derivation='Avg' name='[avg:percentage_of_goal:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[founder]' derivation='Count' name='[cnt:founder:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[title]' derivation='Count' name='[cnt:title:qk]' pivot='key' type='quantitative' />
+            <column caption='Founder' datatype='string' name='[founder]' role='dimension' type='nominal' />
+            <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
+            <column caption='Percentage Of Goal' datatype='real' name='[percentage_of_goal]' role='measure' type='quantitative' />
+            <column-instance column='[percentage_of_goal]' derivation='Sum' name='[sum:percentage_of_goal:qk]' pivot='key' type='quantitative' />
+            <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+            <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[cnt:title:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[cnt:title:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[sum:percentage_of_goal:qk]&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1il29q2077y9av10h0tpu07vs575].[cnt:founder:qk]' shelf='columns' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' field='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' value='47' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]</rows>
+        <cols>([federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk] / [federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names])</cols>
+      </table>
+      <simple-id uuid='{E8844D98-C204-4E74-9384-418B95AEA2EA}' />
+    </worksheet>
+    <worksheet name='Projects by topic + funding raised'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>How is the relation between the number of projects per topic and the median funding raised?</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column-instance column='[founder]' derivation='Count' name='[cnt:founder:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[title]' derivation='Count' name='[cnt:title:qk]' pivot='key' type='quantitative' />
+            <column caption='Founder' datatype='string' name='[founder]' role='dimension' type='nominal' />
+            <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
+            <column-instance column='[funding_raised]' derivation='Median' name='[med:funding_raised:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
+            <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+            <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_raised:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[cnt:title:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1il29q2077y9av10h0tpu07vs575].[cnt:founder:qk]' shelf='columns' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' field='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' value='39' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]</rows>
+        <cols>([federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk] / [federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names])</cols>
+      </table>
+      <simple-id uuid='{E9D2F1CD-6818-4EAB-8B51-228D5A51EF49}' />
+    </worksheet>
+    <worksheet name='Sheet 11'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <mapsources>
+            <mapsource name='Tableau' />
+          </mapsources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column-instance column='[project_id]' derivation='Count' name='[cnt:project_id:qk]' pivot='key' type='quantitative' />
+            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
+            <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[Longitude (generated)]' field-type='quantitative' max='5601698.9022000767' min='-15143536.627481338' projection='EPSG:3857' range-type='fixed' scope='cols' type='space' />
+            <encoding attr='space' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[Latitude (generated)]' field-type='quantitative' max='9681576.6157086361' min='-2283587.5034667039' projection='EPSG:3857' range-type='fixed' scope='rows' type='space' />
+          </style-rule>
+          <style-rule element='map'>
+            <format attr='washout' value='0.0' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <size column='[federated.1il29q2077y9av10h0tpu07vs575].[cnt:project_id:qk]' />
+              <lod column='[federated.1il29q2077y9av10h0tpu07vs575].[none:location:nk]' />
+              <lod column='[federated.1il29q2077y9av10h0tpu07vs575].[cnt:project_id:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1il29q2077y9av10h0tpu07vs575].[Latitude (generated)]</rows>
+        <cols>[federated.1il29q2077y9av10h0tpu07vs575].[Longitude (generated)]</cols>
+      </table>
+      <simple-id uuid='{F619D392-93CC-4E11-8910-BE9394A8BA81}' />
+    </worksheet>
+    <worksheet name='Topics X Funding'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>For which topics could the highest median funding amounts be raised?</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column-instance column='[title]' derivation='Count' name='[cnt:title:qk]' pivot='key' type='quantitative' />
+            <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
+            <column-instance column='[funding_raised]' derivation='Median' name='[med:funding_raised:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
+            <column caption='Title' datatype='string' name='[title]' role='dimension' type='nominal' />
+            <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[cnt:title:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_raised:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_raised:qk]' shelf='columns' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='width' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='71' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minwidth' value='-1' />
+                <format attr='maxwidth' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_raised:qk]</rows>
+        <cols>[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]</cols>
+      </table>
+      <simple-id uuid='{310C7F9A-DF02-494B-A8B8-28BBAE6C4766}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard _.fcp.AccessibleZoneTabOrder.true...enable-sort-zone-taborder='true' name='Dashboard 1'>
+      <style />
+      <size maxheight='851' maxwidth='1457' minheight='851' minwidth='1457' sizing-mode='fixed' />
+      <zones>
+        <zone h='100000' id='2' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='74031' id='5' param='horz' type-v2='layout-flow' w='98902' x='549' y='940'>
+            <zone h='74031' id='3' type-v2='layout-basic' w='98902' x='549' y='940'>
+              <zone h='74031' id='1' name='Projects by topic + funding raised' w='98902' x='549' y='940'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone h='24089' id='7' name='Projects by topic + %_raised' w='98902' x='549' y='74971'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+        <zone h='56169' id='10' is-centered='0' is-scaled='1' param='C:/Users/Juliane/Desktop/CRR/Work docs/Pics/iStock-488543848,, richtig.jpg' type-v2='bitmap' w='49966' x='2265' y='8108' />
+        <zone forceUpdate='' h='86957' id='11' param='https://startsomegood.com/' type-v2='web' w='79204' x='18394' y='8108' />
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='700' minheight='700' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='9' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98120' id='8' param='vert' type-v2='layout-flow' w='98902' x='549' y='940'>
+                <zone fixed-size='280' h='54642' id='1' is-fixed='true' name='Projects by topic + funding raised' w='98902' x='549' y='940'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='43478' id='7' is-fixed='true' name='Projects by topic + %_raised' w='98902' x='549' y='55582'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{7872ED96-0483-4469-8878-3E7C2C5782B5}' />
+    </dashboard>
+    <dashboard _.fcp.AccessibleZoneTabOrder.true...enable-sort-zone-taborder='true' name='Dashboard 2'>
+      <style />
+      <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
+      <zones />
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='700' minheight='700' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='2' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='84000' id='1' param='vert' type-v2='layout-flow' w='84000' x='8000' y='8000' />
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{E6EA3357-C551-412D-B8BC-876590BCB430}' />
+    </dashboard>
+  </dashboards>
+  <windows saved-dpi-scale-factor='1.25' source-height='37'>
+    <window class='worksheet' name='Funding raised general'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='244'>
+            <card pane-specification-id='2' param='[federated.1il29q2077y9av10h0tpu07vs575].[sum:number_of_supporters:qk]' type='color' />
+            <card param='[federated.1il29q2077y9av10h0tpu07vs575].[none:title:nk]' type='highlighter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{FCD2D092-B139-4FDE-A8CE-6CF8C466A575}' />
+    </window>
+    <window class='worksheet' name='Topics X Funding'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{4FDB9D31-B326-4E20-ABC7-A01CD9A815B2}' />
+    </window>
+    <window class='worksheet' name='Funding goal + %_raised'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='4' param='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{26885CE7-0897-4A3C-A25F-6CCCAE5A63F6}' />
+    </window>
+    <window class='worksheet' name='Projects by topic + funding raised'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='100'>
+            <card pane-specification-id='0' param='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{6E278161-738B-4971-8F2C-AD796410CF5A}' />
+    </window>
+    <window class='worksheet' name='Projects by topic + %_raised'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{2B386B99-84CD-487F-BBC2-F7F974AEAAE7}' />
+    </window>
+    <window class='dashboard' name='Dashboard 1'>
+      <viewpoints>
+        <viewpoint name='Projects by topic + %_raised'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Projects by topic + funding raised'>
+          <zoom type='entire-view' />
+        </viewpoint>
+      </viewpoints>
+      <active id='10' />
+      <simple-id uuid='{F330CAD0-703E-40FC-ACB5-7CE92BA3AB36}' />
+    </window>
+    <window class='worksheet' name='Funding X Country'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1il29q2077y9av10h0tpu07vs575].[sum:funding_raised:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{D832F7AA-8152-4B66-A20B-633252191E84}' />
+    </window>
+    <window class='worksheet' name='Map Topic X Country'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='4' param='[federated.1il29q2077y9av10h0tpu07vs575].[cnt:project_id:qk]' type='size' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <map-scale-visibility value='0' />
+        <default-map-tool-selection tool='1' />
+        <default-map-unit-selection mapunit='2' />
+      </viewpoint>
+      <simple-id uuid='{0560FC45-FB79-4900-993A-22920713F524}' />
+    </window>
+    <window class='worksheet' maximized='true' name='Map Topic X Country (2)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <map-scale-visibility value='0' />
+        <default-map-tool-selection tool='1' />
+        <default-map-unit-selection mapunit='2' />
+      </viewpoint>
+      <simple-id uuid='{FA44E0D5-62EE-4113-9117-1295EE2ADF0D}' />
+    </window>
+    <window class='worksheet' name='Funding X Year'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='261'>
+            <card pane-specification-id='0' param='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{9B8BF996-065E-4653-BB1D-2ECF91407015}' />
+    </window>
+    <window class='worksheet' name='Funding X Year (2)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{4058DAAD-E961-447F-8D25-43D57762B01C}' />
+    </window>
+    <window class='dashboard' name='Dashboard 2'>
+      <viewpoints />
+      <active id='-1' />
+      <simple-id uuid='{8F8143A0-C1CB-492A-9732-ABC773624F47}' />
+    </window>
+    <window class='worksheet' name='Sheet 11'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='2' param='[federated.1il29q2077y9av10h0tpu07vs575].[cnt:project_id:qk]' type='size' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{2A3CC975-A801-4E64-BDBC-C4F6BE39FB43}' />
+    </window>
+  </windows>
+</workbook>
