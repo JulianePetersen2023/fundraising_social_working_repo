@@ -33,17 +33,34 @@
   <datasources>
     <datasource hasconnection='false' inline='true' name='Parameters' version='18.1'>
       <aliases enabled='yes' />
-      <column alias='Mean' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;1&quot;'>
-        <calculation class='tableau' formula='&quot;1&quot;' />
+      <column alias='Median' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;0&quot;'>
+        <calculation class='tableau' formula='&quot;0&quot;' />
         <aliases>
           <alias key='&quot;0&quot;' value='Median' />
           <alias key='&quot;1&quot;' value='Mean' />
+          <alias key='&quot;2&quot;' value='Total' />
         </aliases>
         <members>
           <member alias='Median' value='&quot;0&quot;' />
           <member alias='Mean' value='&quot;1&quot;' />
+          <member alias='Total' value='&quot;2&quot;' />
         </members>
       </column>
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[Parameter 1]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;1&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;2&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;0&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
     </datasource>
     <datasource caption='Fundraising for social projects' inline='true' name='federated.031ert70n4gx5m1g20wpb0zbjttq' version='18.1'>
       <connection class='federated'>
@@ -409,8 +426,20 @@
         </metadata-records>
       </connection>
       <aliases enabled='yes' />
-      <column caption='Funding raised median/mean' datatype='real' name='[Calculation_35465869947215872]' role='measure' type='quantitative'>
-        <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([funding_raised])&#13;&#10;ELSE AVG([funding_raised])&#13;&#10;END' />
+      <column caption='Number of Supporters med/mean/tot' datatype='real' name='[Calculation_130322937283055616]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([number_of_supporters])&#13;&#10;ELSEIF [Parameters].[Parameter 1] = &apos;1&apos; THEN AVG([number_of_supporters])&#13;&#10;ELSE SUM([number_of_supporters])&#13;&#10;END' />
+      </column>
+      <column caption='Percentage Funding Success' datatype='real' name='[Calculation_130322937292988417]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='{ FIXED [project_id] : SUM(&#13;&#10;IF [percentage_of_goal] &lt; 1&#13;&#10;THEN 0&#13;&#10;ELSE 1&#13;&#10;END&#13;&#10;)/COUNTD([project_id]) }' />
+      </column>
+      <column caption='Success no_yes' datatype='integer' name='[Calculation_130322937297182722]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [percentage_of_goal] &lt; 1 THEN 0&#13;&#10;ELSE 1&#13;&#10;END' />
+      </column>
+      <column caption='Funding Goal Ranges' datatype='string' name='[Calculation_130322937301807107]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF [funding_goal] &lt; 1000 THEN &apos;&lt; $1,000&apos;&#13;&#10;ELSEIF [funding_goal] &lt; 5000 THEN &apos;&lt; $5,000&apos;&#13;&#10;ELSEIF [funding_goal] &lt; 10000 THEN &apos;&lt; $10,000&apos;&#13;&#10;ELSEIF [funding_goal] &lt; 25000 THEN &apos;&lt; $25,000&apos;&#13;&#10;ELSEIF [funding_goal] &gt;= 25000 THEN &apos;&gt;= $25,000&apos;&#13;&#10;ELSE &apos;&gt; $10,000&apos;&#13;&#10;END' />
+      </column>
+      <column caption='Funding raised med/mean/tot' datatype='real' name='[Calculation_35465869947215872]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([funding_raised])&#13;&#10;ELSEIF [Parameters].[Parameter 1] = &apos;0&apos; THEN AVG([funding_raised])&#13;&#10;ELSE SUM([funding_raised])&#13;&#10;END' />
       </column>
       <column caption='Average information' datatype='string' name='[Calculation_35465869957472259]' role='dimension' type='nominal'>
         <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN &apos;(average: median)&apos;&#13;&#10;ELSE &apos;(average: mean)&apos;&#13;&#10;END' />
@@ -428,14 +457,17 @@
       <column caption='No supporters min CI' datatype='real' name='[Calculation_754071485396942854]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='AVG([number_of_supporters]) - 1.96*STDEV([number_of_supporters])/SQRT(COUNT([number_of_supporters]))' />
       </column>
+      <column aggregation='None' datatype='integer' name='[Funding Goal (bin)]' role='dimension' type='quantitative'>
+        <calculation class='bin' decimals='3' formula='[funding_goal]' peg='0' size='1000' />
+      </column>
       <column aggregation='None' caption='Funding Raised (bin) (w/o outliers)' datatype='integer' name='[Funding Raised (bin) (copy)_754071485295116288]' role='dimension' type='quantitative'>
         <calculation class='bin' decimals='2' formula='[funding_raised]' peg='0' size='100' />
       </column>
       <column aggregation='None' datatype='integer' name='[Funding Raised (bin)]' role='dimension' type='quantitative'>
         <calculation class='bin' decimals='3' formula='[funding_raised]' peg='0' size='1000' />
       </column>
-      <column caption='Funding goal median/mean (copy)' datatype='real' name='[Funding raised median/mean (copy)_35465869949022209]' role='measure' type='quantitative'>
-        <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([funding_goal])&#13;&#10;ELSE AVG([funding_goal])&#13;&#10;END' />
+      <column caption='Funding goal med/mean/tot' datatype='real' name='[Funding raised median/mean (copy)_35465869949022209]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([funding_goal])&#13;&#10;ELSEIF [Parameters].[Parameter 1] = &apos;1&apos; THEN AVG([funding_goal])&#13;&#10;ELSE SUM([funding_goal])&#13;&#10;END' />
       </column>
       <column caption='Funding achieved median/mean' datatype='real' name='[Funding raised median/mean (copy)_35465869949861890]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([funding_raised])/MEDIAN([funding_goal])&#13;&#10;ELSE AVG([funding_raised])/AVG([funding_goal])&#13;&#10;END' />
@@ -503,12 +535,38 @@
           </dictionary>
         </manual-sort>
       </default-sorts>
+      <field-sort-info field-sort-order-type='custom-order'>
+        <field-sort-custom-order field='project_id' />
+        <field-sort-custom-order field='title' />
+        <field-sort-custom-order field='founder' />
+        <field-sort-custom-order field='location' />
+        <field-sort-custom-order field='year' />
+        <field-sort-custom-order field='funding_goal' />
+        <field-sort-custom-order field='Calculation_130322937301807107' />
+        <field-sort-custom-order field='stretch_goal_no_yes' />
+        <field-sort-custom-order field='funding_goal_stretch_point' />
+        <field-sort-custom-order field='relative_stretch_goal' />
+        <field-sort-custom-order field='funding_raised' />
+        <field-sort-custom-order field='percentage_of_goal' />
+        <field-sort-custom-order field='Calculation_130322937297182722' />
+        <field-sort-custom-order field='percentage_of_goal_stretch' />
+        <field-sort-custom-order field='number_of_supporters' />
+        <field-sort-custom-order field='Calculation_130322937283055616' />
+        <field-sort-custom-order field='word_count_description' />
+        <field-sort-custom-order field='Year (copy)_754071485320359937' />
+        <field-sort-custom-order field='Funding Raised (bin) (copy)_754071485295116288' />
+        <field-sort-custom-order field='Funding Raised (bin)' />
+        <field-sort-custom-order field='Number Of Supporters (bin)' />
+        <field-sort-custom-order field='Relative Stretch Goal (bin)' />
+        <field-sort-custom-order field='Word Count Description (bin)' />
+      </field-sort-info>
       <datasource-dependencies datasource='Parameters'>
-        <column alias='Mean' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;1&quot;'>
-          <calculation class='tableau' formula='&quot;1&quot;' />
+        <column alias='Median' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;0&quot;'>
+          <calculation class='tableau' formula='&quot;0&quot;' />
           <aliases>
             <alias key='&quot;0&quot;' value='Median' />
             <alias key='&quot;1&quot;' value='Mean' />
+            <alias key='&quot;2&quot;' value='Total' />
           </aliases>
         </column>
       </datasource-dependencies>
@@ -581,47 +639,21 @@
   <mapsources>
     <mapsource name='Tableau' />
   </mapsources>
-  <shared-views>
-    <shared-view name='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-      <datasources>
-        <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
-      </datasources>
-      <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-        <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-          <semantic-values semantic-role='[Country].[Name]'>
-            <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-          </semantic-values>
-        </column>
-        <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
-      </datasource-dependencies>
-      <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]'>
-        <groupfilter function='level-members' level='[none:location:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-      </filter>
-    </shared-view>
-  </shared-views>
   <actions>
-    <action caption='Filter 1 (generated)' name='[Action1_000DA2DB09D842CA8CDE1B8D563DADE1]'>
+    <action caption='Filter 1 (generated)' name='[Action1_1E885B3E047549B89ACB5AE156C40E6A]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='DASHBOARD TEST' type='sheet' worksheet='World map funding raised w/o US, AUS' />
+      <source dashboard='DASHBOARD' type='sheet' worksheet='World map funding raised w/o US, AUS' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='DASHBOARD TEST' />
+        <param name='target' value='DASHBOARD' />
       </command>
     </action>
-    <action caption='Filter 2 (generated)' name='[Action3_7C0D920FBA3B407BA5DB7A046C83FD89]'>
+    <action caption='Filter 2 (generated)' name='[Action2_2847161716294D399DE21BD56AD14D59]'>
       <activation auto-clear='true' type='on-select' />
-      <source dashboard='DASHBOARD TEST' type='sheet' worksheet='Topics' />
+      <source dashboard='DASHBOARD' type='sheet' worksheet='Topics' />
       <command command='tsc:tsl-filter'>
         <param name='special-fields' value='all' />
-        <param name='target' value='DASHBOARD TEST' />
-      </command>
-    </action>
-    <action caption='Filter 3 (generated)' name='[Action4_26C93C15979A44EE97F35941C2CFE1E7]'>
-      <activation auto-clear='true' type='on-select' />
-      <source dashboard='DASHBOARD TEST' type='sheet' worksheet='Funding achieved' />
-      <command command='tsc:tsl-filter'>
-        <param name='special-fields' value='all' />
-        <param name='target' value='DASHBOARD TEST' />
+        <param name='target' value='DASHBOARD' />
       </command>
     </action>
   </actions>
@@ -634,22 +666,13 @@
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
             <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[funding_raised]' derivation='Median' name='[med:funding_raised:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
           </datasource-dependencies>
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[med:funding_raised:qk]' shelf='rows' />
           </shelf-sorts>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style>
@@ -677,112 +700,6 @@
       </table>
       <simple-id uuid='{F5DB86CB-10BC-4BFA-BA76-0EA514CA8A33}' />
     </worksheet>
-    <worksheet name='Funding achieved'>
-      <layout-options>
-        <title>
-          <formatted-text>
-            <run fontalignment='1' fontcolor='#ffffff' fontsize='10'>&lt;Sheet Name&gt;</run>
-            <run fontalignment='1'>Æ&#10;</run>
-            <run fontalignment='1' fontcolor='#ffffff' fontsize='8'>(average)</run>
-          </formatted-text>
-        </title>
-      </layout-options>
-      <table>
-        <view>
-          <datasources>
-            <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
-            <datasource name='Parameters' />
-          </datasources>
-          <datasource-dependencies datasource='Parameters'>
-            <column alias='Mean' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;1&quot;'>
-              <calculation class='tableau' formula='&quot;1&quot;' />
-              <aliases>
-                <alias key='&quot;0&quot;' value='Median' />
-                <alias key='&quot;1&quot;' value='Mean' />
-              </aliases>
-            </column>
-          </datasource-dependencies>
-          <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-            <column caption='Funding achieved median/mean' datatype='real' name='[Funding raised median/mean (copy)_35465869949861890]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([funding_raised])/MEDIAN([funding_goal])&#13;&#10;ELSE AVG([funding_raised])/AVG([funding_goal])&#13;&#10;END' />
-            </column>
-            <column caption='Year (categorical)' datatype='string' datatype-customized='true' name='[Year (copy)_754071485320359937]' role='dimension' type='nominal'>
-              <calculation class='tableau' formula='STR([year])' />
-            </column>
-            <column-instance column='[Year (copy)_754071485320359937]' derivation='Attribute' name='[attr:Year (copy)_754071485320359937:nk]' pivot='key' type='nominal' />
-            <column caption='Funding Goal' datatype='real' name='[funding_goal]' role='measure' type='quantitative' />
-            <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
-            <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
-            <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
-            <column-instance column='[Funding raised median/mean (copy)_35465869949861890]' derivation='User' name='[usr:Funding raised median/mean (copy)_35465869949861890:qk]' pivot='key' type='quantitative' />
-            <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
-          </datasource-dependencies>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]'>
-            <groupfilter function='level-members' level='[location]' user:ui-action-filter='[Action1_000DA2DB09D842CA8CDE1B8D563DADE1]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]'>
-            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action3_7C0D920FBA3B407BA5DB7A046C83FD89]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' filter-group='4'>
-            <groupfilter function='level-members' level='[attr:Year (copy)_754071485320359937:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' filter-group='3'>
-            <groupfilter function='level-members' level='[none:topic:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]</column>
-          </slices>
-          <aggregation value='true' />
-        </view>
-        <style>
-          <style-rule element='cell'>
-            <format attr='border-width' value='0' />
-            <format attr='border-style' value='none' />
-            <format attr='text-align' value='center' />
-            <format attr='font-weight' value='bold' />
-            <format attr='text-format' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[usr:Funding raised median/mean (copy)_35465869949861890:qk]' value='p0%' />
-          </style-rule>
-          <style-rule element='table'>
-            <format attr='background-color' value='#000000' />
-          </style-rule>
-          <style-rule element='worksheet'>
-            <format attr='font-size' value='12' />
-            <format attr='color' value='#f1ce63' />
-            <format attr='font-weight' value='bold' />
-          </style-rule>
-        </style>
-        <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Automatic' />
-            <encodings>
-              <text column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[usr:Funding raised median/mean (copy)_35465869949861890:qk]' />
-            </encodings>
-            <style>
-              <style-rule element='mark'>
-                <format attr='mark-labels-cull' value='true' />
-                <format attr='mark-labels-show' value='true' />
-              </style-rule>
-            </style>
-          </pane>
-        </panes>
-        <rows />
-        <cols />
-      </table>
-      <simple-id uuid='{C1A3677B-3FE6-42E3-8ABE-95C65FD7A6D6}' />
-    </worksheet>
     <worksheet name='Funding goal'>
       <layout-options>
         <title>
@@ -800,17 +717,18 @@
             <datasource name='Parameters' />
           </datasources>
           <datasource-dependencies datasource='Parameters'>
-            <column alias='Mean' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;1&quot;'>
-              <calculation class='tableau' formula='&quot;1&quot;' />
+            <column alias='Median' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;0&quot;'>
+              <calculation class='tableau' formula='&quot;0&quot;' />
               <aliases>
                 <alias key='&quot;0&quot;' value='Median' />
                 <alias key='&quot;1&quot;' value='Mean' />
+                <alias key='&quot;2&quot;' value='Total' />
               </aliases>
             </column>
           </datasource-dependencies>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-            <column caption='Funding goal median/mean (copy)' datatype='real' name='[Funding raised median/mean (copy)_35465869949022209]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([funding_goal])&#13;&#10;ELSE AVG([funding_goal])&#13;&#10;END' />
+            <column caption='Funding goal med/mean/tot' datatype='real' name='[Funding raised median/mean (copy)_35465869949022209]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([funding_goal])&#13;&#10;ELSEIF [Parameters].[Parameter 1] = &apos;1&apos; THEN AVG([funding_goal])&#13;&#10;ELSE SUM([funding_goal])&#13;&#10;END' />
             </column>
             <column caption='Year (categorical)' datatype='string' datatype-customized='true' name='[Year (copy)_754071485320359937]' role='dimension' type='nominal'>
               <calculation class='tableau' formula='STR([year])' />
@@ -827,25 +745,29 @@
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
             <column-instance column='[Funding raised median/mean (copy)_35465869949022209]' derivation='User' name='[usr:Funding raised median/mean (copy)_35465869949022209:qk]' pivot='key' type='quantitative' />
             <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
+            <column-instance column='[year]' derivation='Year' name='[yr:year:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]'>
-            <groupfilter function='level-members' level='[location]' user:ui-action-filter='[Action1_000DA2DB09D842CA8CDE1B8D563DADE1]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]'>
-            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action3_7C0D920FBA3B407BA5DB7A046C83FD89]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action2_2847161716294D399DE21BD56AD14D59]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' filter-group='4'>
             <groupfilter function='level-members' level='[attr:Year (copy)_754071485320359937:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' filter-group='6'>
+            <groupfilter function='level-members' level='[none:location:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' filter-group='3'>
             <groupfilter function='level-members' level='[none:topic:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]' filter-group='5'>
+            <groupfilter function='level-members' level='[yr:year:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
           <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -893,22 +815,13 @@
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
             <column caption='Funding Goal' datatype='real' name='[funding_goal]' role='measure' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[funding_goal]' derivation='Median' name='[med:funding_goal:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
           </datasource-dependencies>
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[med:funding_goal:qk]' shelf='rows' />
           </shelf-sorts>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style>
@@ -942,7 +855,7 @@
           <formatted-text>
             <run fontalignment='1' fontcolor='#ffffff' fontsize='10'>&lt;Sheet Name&gt;</run>
             <run fontalignment='1'>Æ&#10;</run>
-            <run fontalignment='1' fontcolor='#ffffff' fontsize='8'>(average)</run>
+            <run fontalignment='1' fontcolor='#ffffff' fontsize='8'>(&lt;[Parameters].[Parameter 1]&gt;)</run>
           </formatted-text>
         </title>
       </layout-options>
@@ -953,17 +866,18 @@
             <datasource name='Parameters' />
           </datasources>
           <datasource-dependencies datasource='Parameters'>
-            <column alias='Mean' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;1&quot;'>
-              <calculation class='tableau' formula='&quot;1&quot;' />
+            <column alias='Median' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;0&quot;'>
+              <calculation class='tableau' formula='&quot;0&quot;' />
               <aliases>
                 <alias key='&quot;0&quot;' value='Median' />
                 <alias key='&quot;1&quot;' value='Mean' />
+                <alias key='&quot;2&quot;' value='Total' />
               </aliases>
             </column>
           </datasource-dependencies>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-            <column caption='Funding raised median/mean' datatype='real' name='[Calculation_35465869947215872]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([funding_raised])&#13;&#10;ELSE AVG([funding_raised])&#13;&#10;END' />
+            <column caption='Funding raised med/mean/tot' datatype='real' name='[Calculation_35465869947215872]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([funding_raised])&#13;&#10;ELSEIF [Parameters].[Parameter 1] = &apos;0&apos; THEN AVG([funding_raised])&#13;&#10;ELSE SUM([funding_raised])&#13;&#10;END' />
             </column>
             <column caption='Year (categorical)' datatype='string' datatype-customized='true' name='[Year (copy)_754071485320359937]' role='dimension' type='nominal'>
               <calculation class='tableau' formula='STR([year])' />
@@ -980,25 +894,29 @@
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
             <column-instance column='[Calculation_35465869947215872]' derivation='User' name='[usr:Calculation_35465869947215872:qk]' pivot='key' type='quantitative' />
             <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
+            <column-instance column='[year]' derivation='Year' name='[yr:year:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]'>
-            <groupfilter function='level-members' level='[location]' user:ui-action-filter='[Action1_000DA2DB09D842CA8CDE1B8D563DADE1]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]'>
-            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action3_7C0D920FBA3B407BA5DB7A046C83FD89]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action2_2847161716294D399DE21BD56AD14D59]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' filter-group='4'>
             <groupfilter function='level-members' level='[attr:Year (copy)_754071485320359937:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' filter-group='6'>
+            <groupfilter function='level-members' level='[none:location:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' filter-group='3'>
             <groupfilter function='level-members' level='[none:topic:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]' filter-group='5'>
+            <groupfilter function='level-members' level='[yr:year:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
           <slices>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -1052,17 +970,8 @@
             </column>
             <column-instance column='[funding_raised]' derivation='Count' name='[cnt:funding_raised:qk]' pivot='key' type='quantitative' />
             <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[Funding Raised (bin)]' derivation='None' name='[none:Funding Raised (bin):qk]' pivot='key' type='quantitative' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
           </datasource-dependencies>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -1095,13 +1004,7 @@
             </column>
             <column-instance column='[funding_raised]' derivation='Count' name='[cnt:funding_raised:qk]' pivot='key' type='quantitative' />
             <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[Funding Raised (bin) (copy)_754071485295116288]' derivation='None' name='[none:Funding Raised (bin) (copy)_754071485295116288:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
           </datasource-dependencies>
           <filter class='quantitative' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:Funding Raised (bin) (copy)_754071485295116288:qk]' included-values='in-range'>
             <min>0</min>
@@ -1109,7 +1012,6 @@
           </filter>
           <slices>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:Funding Raised (bin) (copy)_754071485295116288:qk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -1131,6 +1033,104 @@
       </table>
       <simple-id uuid='{91014ACC-D4F9-4746-93E0-966E9EC32A77}' />
     </worksheet>
+    <worksheet name='No projects x funding goal ranges'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
+          </datasources>
+          <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
+            <column caption='Percentage Funding Success' datatype='real' name='[Calculation_130322937292988417]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='{ FIXED [project_id] : SUM(&#13;&#10;IF [percentage_of_goal] &lt; 1&#13;&#10;THEN 0&#13;&#10;ELSE 1&#13;&#10;END&#13;&#10;)/COUNTD([project_id]) }' />
+            </column>
+            <column caption='Funding Goal Ranges' datatype='string' name='[Calculation_130322937301807107]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [funding_goal] &lt; 1000 THEN &apos;&lt; $1,000&apos;&#13;&#10;ELSEIF [funding_goal] &lt; 5000 THEN &apos;&lt; $5,000&apos;&#13;&#10;ELSEIF [funding_goal] &lt; 10000 THEN &apos;&lt; $10,000&apos;&#13;&#10;ELSEIF [funding_goal] &lt; 25000 THEN &apos;&lt; $25,000&apos;&#13;&#10;ELSEIF [funding_goal] &gt;= 25000 THEN &apos;&gt;= $25,000&apos;&#13;&#10;ELSE &apos;&gt; $10,000&apos;&#13;&#10;END' />
+            </column>
+            <column-instance column='[Calculation_130322937292988417]' derivation='Avg' name='[avg:Calculation_130322937292988417:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[project_id]' derivation='Count' name='[cnt:project_id:qk]' pivot='key' type='quantitative' />
+            <column caption='Funding Goal' datatype='real' name='[funding_goal]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_130322937301807107]' derivation='None' name='[none:Calculation_130322937301807107:nk]' pivot='key' type='nominal' />
+            <column caption='Percentage Of Goal' datatype='real' name='[percentage_of_goal]' role='measure' type='quantitative' />
+            <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='label'>
+            <format attr='text-format' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[avg:Calculation_130322937292988417:qk]' value='p0%' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[avg:Calculation_130322937292988417:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.031ert70n4gx5m1g20wpb0zbjttq].[cnt:project_id:qk]</rows>
+        <cols>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:Calculation_130322937301807107:nk]</cols>
+      </table>
+      <simple-id uuid='{E5E976FC-581F-45B5-BDD6-5125C2F8CCAB}' />
+    </worksheet>
+    <worksheet name='No projects x funding goal ranges (2)'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
+          </datasources>
+          <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
+            <column caption='Percentage Funding Success' datatype='real' name='[Calculation_130322937292988417]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='{ FIXED [project_id] : SUM(&#13;&#10;IF [percentage_of_goal] &lt; 1&#13;&#10;THEN 0&#13;&#10;ELSE 1&#13;&#10;END&#13;&#10;)/COUNTD([project_id]) }' />
+            </column>
+            <column caption='Funding Goal Ranges' datatype='string' name='[Calculation_130322937301807107]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [funding_goal] &lt; 1000 THEN &apos;&lt; $1,000&apos;&#13;&#10;ELSEIF [funding_goal] &lt; 5000 THEN &apos;&lt; $5,000&apos;&#13;&#10;ELSEIF [funding_goal] &lt; 10000 THEN &apos;&lt; $10,000&apos;&#13;&#10;ELSEIF [funding_goal] &lt; 25000 THEN &apos;&lt; $25,000&apos;&#13;&#10;ELSEIF [funding_goal] &gt;= 25000 THEN &apos;&gt;= $25,000&apos;&#13;&#10;ELSE &apos;&gt; $10,000&apos;&#13;&#10;END' />
+            </column>
+            <column-instance column='[Calculation_130322937292988417]' derivation='Avg' name='[avg:Calculation_130322937292988417:qk]' pivot='key' type='quantitative' />
+            <column caption='Funding Goal' datatype='real' name='[funding_goal]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_130322937301807107]' derivation='None' name='[none:Calculation_130322937301807107:nk]' pivot='key' type='nominal' />
+            <column caption='Percentage Of Goal' datatype='real' name='[percentage_of_goal]' role='measure' type='quantitative' />
+            <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[avg:Calculation_130322937292988417:qk]' field-type='quantitative' max='1.0' min='0.0' range-type='fixed' scope='cols' type='space' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='text-format' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[avg:Calculation_130322937292988417:qk]' value='p0%' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='text-format' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[avg:Calculation_130322937292988417:qk]' value='p0%' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[avg:Calculation_130322937292988417:qk]' />
+              <text column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[avg:Calculation_130322937292988417:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:Calculation_130322937301807107:nk]</rows>
+        <cols>[federated.031ert70n4gx5m1g20wpb0zbjttq].[avg:Calculation_130322937292988417:qk]</cols>
+      </table>
+      <simple-id uuid='{B4E87813-5D3F-4D4E-9968-300A6CCE53AB}' />
+    </worksheet>
     <worksheet name='No projects x year x topic'>
       <table>
         <view>
@@ -1139,12 +1139,6 @@
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
             <column-instance column='[project_id]' derivation='CountD' name='[ctd:project_id:qk]' pivot='key' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
             <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
             <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
@@ -1152,9 +1146,6 @@
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
             <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
           </datasource-dependencies>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -1192,18 +1183,9 @@
               <calculation class='bin' decimals='0' formula='[number_of_supporters]' peg='0' size='5' />
             </column>
             <column-instance column='[number_of_supporters]' derivation='Count' name='[cnt:number_of_supporters:qk]' pivot='key' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[Number Of Supporters (bin)]' derivation='None' name='[none:Number Of Supporters (bin):qk]' pivot='key' type='quantitative' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column caption='Number Of Supporters' datatype='integer' name='[number_of_supporters]' role='measure' type='quantitative' />
           </datasource-dependencies>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -1250,9 +1232,6 @@
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[sum:number_of_supporters:qk]' shelf='rows' />
           </shelf-sorts>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -1291,9 +1270,6 @@
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[med:number_of_supporters:qk]' shelf='rows' />
           </shelf-sorts>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -1338,12 +1314,6 @@
             <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
             <column caption='Number Of Supporters' datatype='integer' name='[number_of_supporters]' role='measure' type='quantitative' />
             <column-instance column='[number_of_supporters]' derivation='Sum' name='[sum:number_of_supporters:qk]' pivot='key' type='quantitative' />
@@ -1352,9 +1322,6 @@
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[sum:number_of_supporters:qk]' shelf='rows' />
           </shelf-sorts>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -1379,13 +1346,7 @@
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
             <column-instance column='[number_of_supporters]' derivation='Avg' name='[avg:number_of_supporters:qk]' pivot='key' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[number_of_supporters]' derivation='Median' name='[med:number_of_supporters:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
             <column caption='Number Of Supporters' datatype='integer' name='[number_of_supporters]' role='measure' type='quantitative' />
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
@@ -1393,9 +1354,6 @@
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[med:number_of_supporters:qk]' shelf='rows' />
           </shelf-sorts>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -1431,20 +1389,11 @@
             <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
             <column caption='Number Of Supporters' datatype='integer' name='[number_of_supporters]' role='measure' type='quantitative' />
             <column-instance column='[number_of_supporters]' derivation='Sum' name='[sum:number_of_supporters:qk]' pivot='key' type='quantitative' />
             <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
           </datasource-dependencies>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -1478,24 +1427,11 @@
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
             <column-instance column='[number_of_supporters]' derivation='Avg' name='[avg:number_of_supporters:qk]' pivot='key' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
             <column caption='Number Of Supporters' datatype='integer' name='[number_of_supporters]' role='measure' type='quantitative' />
             <column-instance column='[number_of_supporters]' derivation='Sum' name='[sum:number_of_supporters:qk]' pivot='key' type='quantitative' />
             <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
           </datasource-dependencies>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]'>
-            <groupfilter function='level-members' level='[location]' user:ui-action-filter='[Action1_000DA2DB09D842CA8CDE1B8D563DADE1]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -1528,12 +1464,6 @@
             <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
             <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
             <column caption='Number Of Supporters' datatype='integer' name='[number_of_supporters]' role='measure' type='quantitative' />
@@ -1541,9 +1471,6 @@
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
             <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
           </datasource-dependencies>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -1562,6 +1489,210 @@
         <cols>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:year:qk]</cols>
       </table>
       <simple-id uuid='{1931E3DE-8198-451B-A7DF-311579A7048B}' />
+    </worksheet>
+    <worksheet name='No.  of supporters'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontalignment='1' fontcolor='#ffffff' fontsize='10'>&lt;Sheet Name&gt;</run>
+            <run fontalignment='1'>Æ&#10;</run>
+            <run fontalignment='1' fontcolor='#ffffff' fontsize='8'>(&lt;[Parameters].[Parameter 1]&gt;)</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
+            <datasource name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column alias='Median' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;0&quot;'>
+              <calculation class='tableau' formula='&quot;0&quot;' />
+              <aliases>
+                <alias key='&quot;0&quot;' value='Median' />
+                <alias key='&quot;1&quot;' value='Mean' />
+                <alias key='&quot;2&quot;' value='Total' />
+              </aliases>
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
+            <column caption='Number of Supporters med/mean/tot' datatype='real' name='[Calculation_130322937283055616]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &apos;0&apos; THEN MEDIAN([number_of_supporters])&#13;&#10;ELSEIF [Parameters].[Parameter 1] = &apos;1&apos; THEN AVG([number_of_supporters])&#13;&#10;ELSE SUM([number_of_supporters])&#13;&#10;END' />
+            </column>
+            <column caption='Year (categorical)' datatype='string' datatype-customized='true' name='[Year (copy)_754071485320359937]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='STR([year])' />
+            </column>
+            <column-instance column='[Year (copy)_754071485320359937]' derivation='Attribute' name='[attr:Year (copy)_754071485320359937:nk]' pivot='key' type='nominal' />
+            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
+              <semantic-values semantic-role='[Country].[Name]'>
+                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
+              </semantic-values>
+            </column>
+            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
+            <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
+            <column caption='Number Of Supporters' datatype='integer' name='[number_of_supporters]' role='measure' type='quantitative' />
+            <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_130322937283055616]' derivation='User' name='[usr:Calculation_130322937283055616:qk]' pivot='key' type='quantitative' />
+            <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
+            <column-instance column='[year]' derivation='Year' name='[yr:year:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]'>
+            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action2_2847161716294D399DE21BD56AD14D59]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' filter-group='4'>
+            <groupfilter function='level-members' level='[attr:Year (copy)_754071485320359937:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' filter-group='6'>
+            <groupfilter function='level-members' level='[none:location:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' filter-group='3'>
+            <groupfilter function='level-members' level='[none:topic:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]' filter-group='5'>
+            <groupfilter function='level-members' level='[yr:year:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='border-width' value='0' />
+            <format attr='border-style' value='none' />
+            <format attr='text-align' value='center' />
+            <format attr='font-weight' value='bold' />
+            <format attr='text-format' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[usr:Calculation_130322937283055616:qk]' value='n#,##0;-#,##0' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#000000' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='font-size' value='12' />
+            <format attr='color' value='#f1ce63' />
+            <format attr='font-weight' value='bold' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[usr:Calculation_130322937283055616:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{C1A3677B-3FE6-42E3-8ABE-95C65FD7A6D6}' />
+    </worksheet>
+    <worksheet name='No. of projects'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontalignment='1' fontcolor='#ffffff' fontsize='10'>&lt;Sheet Name&gt;</run>
+            <run fontalignment='1'>Æ&#10;</run>
+            <run fontalignment='1' fontcolor='#ffffff' fontsize='8'>(Selection)</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
+          </datasources>
+          <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
+            <column caption='Year (categorical)' datatype='string' datatype-customized='true' name='[Year (copy)_754071485320359937]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='STR([year])' />
+            </column>
+            <column-instance column='[Year (copy)_754071485320359937]' derivation='Attribute' name='[attr:Year (copy)_754071485320359937:nk]' pivot='key' type='nominal' />
+            <column-instance column='[project_id]' derivation='CountD' name='[ctd:project_id:qk]' pivot='key' type='quantitative' />
+            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
+              <semantic-values semantic-role='[Country].[Name]'>
+                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
+              </semantic-values>
+            </column>
+            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
+            <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
+            <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
+            <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
+            <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
+            <column-instance column='[year]' derivation='Year' name='[yr:year:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]'>
+            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action2_2847161716294D399DE21BD56AD14D59]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' filter-group='4'>
+            <groupfilter function='level-members' level='[attr:Year (copy)_754071485320359937:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' filter-group='6'>
+            <groupfilter function='level-members' level='[none:location:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' filter-group='3'>
+            <groupfilter function='level-members' level='[none:topic:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]' filter-group='5'>
+            <groupfilter function='level-members' level='[yr:year:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='border-width' value='0' />
+            <format attr='border-style' value='none' />
+            <format attr='text-align' value='center' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#000000' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='font-size' value='12' />
+            <format attr='color' value='#f1ce63' />
+            <format attr='font-weight' value='bold' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[ctd:project_id:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{69EBAFC7-F41E-49F9-9FC7-78AC773B6EAD}' />
     </worksheet>
     <worksheet name='Project details'>
       <layout-options>
@@ -1586,7 +1717,6 @@
               <calculation class='tableau' formula='STR([year])' />
             </column>
             <column-instance column='[Year (copy)_754071485320359937]' derivation='Attribute' name='[attr:Year (copy)_754071485320359937:nk]' pivot='key' type='nominal' />
-            <column-instance column='[year]' derivation='Attribute' name='[attr:year:qk]' pivot='key' type='quantitative' />
             <column caption='Founder' datatype='string' name='[founder]' role='dimension' type='nominal' />
             <column caption='Funding Goal' datatype='real' name='[funding_goal]' role='measure' type='quantitative' />
             <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
@@ -1611,6 +1741,7 @@
               <table-calc ordering-type='Columns' />
             </column-instance>
             <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
+            <column-instance column='[year]' derivation='Year' name='[yr:year:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[:Measure Names]'>
             <groupfilter function='union' user:op='manual'>
@@ -1627,12 +1758,17 @@
               <bucket>&quot;[federated.031ert70n4gx5m1g20wpb0zbjttq].[sum:number_of_supporters:qk]&quot;</bucket>
             </dictionary>
           </manual-sort>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' filter-group='4'>
-            <groupfilter function='level-members' level='[attr:Year (copy)_754071485320359937:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]'>
+            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action2_2847161716294D399DE21BD56AD14D59]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
-          <filter class='quantitative' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:year:qk]' included-values='in-range' />
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' filter-group='6'>
+            <groupfilter function='level-members' level='[none:location:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' filter-group='3'>
             <groupfilter function='level-members' level='[none:topic:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]' filter-group='5'>
+            <groupfilter function='level-members' level='[yr:year:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:title:nk]' direction='DESC' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[sum:number_of_supporters:qk]' shelf='rows' />
@@ -1641,8 +1777,8 @@
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[:Measure Names]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:year:qk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -1686,6 +1822,7 @@
             <format attr='title' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' value='Select by location:' />
             <format attr='title' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' value='Select by topic:' />
             <format attr='title' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' value='Select by year:' />
+            <format attr='title' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]' value='Select by year:' />
             <format attr='color' value='#f1ce63' />
             <format attr='background-color' value='#000000' />
             <format attr='border-style' value='solid' />
@@ -1694,6 +1831,7 @@
           </style-rule>
           <style-rule element='quick-filter-title'>
             <format attr='color' value='#f1ce63' />
+            <format attr='text-align' value='left' />
           </style-rule>
         </style>
         <panes>
@@ -1722,96 +1860,6 @@
       </table>
       <simple-id uuid='{BFCBD175-EEDB-4426-89DB-4032374E876B}' />
     </worksheet>
-    <worksheet name='Projects'>
-      <layout-options>
-        <title>
-          <formatted-text>
-            <run fontalignment='1' fontcolor='#ffffff' fontsize='10'>&lt;Sheet Name&gt;</run>
-            <run fontalignment='1'>Æ&#10;</run>
-            <run fontalignment='1' fontcolor='#ffffff' fontsize='8'>(total number)</run>
-          </formatted-text>
-        </title>
-      </layout-options>
-      <table>
-        <view>
-          <datasources>
-            <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
-          </datasources>
-          <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-            <column caption='Year (categorical)' datatype='string' datatype-customized='true' name='[Year (copy)_754071485320359937]' role='dimension' type='nominal'>
-              <calculation class='tableau' formula='STR([year])' />
-            </column>
-            <column-instance column='[Year (copy)_754071485320359937]' derivation='Attribute' name='[attr:Year (copy)_754071485320359937:nk]' pivot='key' type='nominal' />
-            <column-instance column='[project_id]' derivation='CountD' name='[ctd:project_id:qk]' pivot='key' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
-            <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
-            <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
-            <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
-            <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
-          </datasource-dependencies>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]'>
-            <groupfilter function='level-members' level='[location]' user:ui-action-filter='[Action1_000DA2DB09D842CA8CDE1B8D563DADE1]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]'>
-            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action3_7C0D920FBA3B407BA5DB7A046C83FD89]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' filter-group='4'>
-            <groupfilter function='level-members' level='[attr:Year (copy)_754071485320359937:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' filter-group='3'>
-            <groupfilter function='level-members' level='[none:topic:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]</column>
-          </slices>
-          <aggregation value='true' />
-        </view>
-        <style>
-          <style-rule element='cell'>
-            <format attr='border-width' value='0' />
-            <format attr='border-style' value='none' />
-            <format attr='text-align' value='center' />
-          </style-rule>
-          <style-rule element='table'>
-            <format attr='background-color' value='#000000' />
-          </style-rule>
-          <style-rule element='worksheet'>
-            <format attr='font-size' value='12' />
-            <format attr='color' value='#f1ce63' />
-            <format attr='font-weight' value='bold' />
-          </style-rule>
-        </style>
-        <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
-            <view>
-              <breakdown value='auto' />
-            </view>
-            <mark class='Automatic' />
-            <encodings>
-              <text column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[ctd:project_id:qk]' />
-            </encodings>
-            <style>
-              <style-rule element='mark'>
-                <format attr='mark-labels-cull' value='true' />
-                <format attr='mark-labels-show' value='true' />
-              </style-rule>
-            </style>
-          </pane>
-        </panes>
-        <rows />
-        <cols />
-      </table>
-      <simple-id uuid='{69EBAFC7-F41E-49F9-9FC7-78AC773B6EAD}' />
-    </worksheet>
     <worksheet name='Projects x funding raised (graph)'>
       <table>
         <view>
@@ -1821,13 +1869,7 @@
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
             <column caption='Founder' datatype='string' name='[founder]' role='dimension' type='nominal' />
             <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[founder]' derivation='None' name='[none:founder:nk]' pivot='key' type='nominal' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column-instance column='[project_id]' derivation='None' name='[none:project_id:ok]' pivot='key' type='ordinal' />
             <column-instance column='[title]' derivation='None' name='[none:title:nk]' pivot='key' type='nominal' />
             <column caption='Number Of Supporters' datatype='integer' name='[number_of_supporters]' role='measure' type='quantitative' />
@@ -1839,9 +1881,6 @@
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:project_id:ok]' direction='DESC' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[sum:number_of_supporters:qk]' shelf='rows' />
           </shelf-sorts>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style>
@@ -1901,9 +1940,6 @@
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:project_id:ok]' direction='DESC' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[sum:percentage_of_goal:qk]' shelf='rows' />
           </shelf-sorts>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style>
@@ -1962,9 +1998,6 @@
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:project_id:ok]' direction='DESC' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[sum:percentage_of_goal_stretch:qk]' shelf='rows' />
           </shelf-sorts>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style>
@@ -2007,18 +2040,9 @@
               <calculation class='bin' decimals='-2' formula='[relative_stretch_goal]' peg='0' size='0.05' />
             </column>
             <column-instance column='[relative_stretch_goal]' derivation='Count' name='[cnt:relative_stretch_goal:qk]' pivot='key' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[Relative Stretch Goal (bin)]' derivation='None' name='[none:Relative Stretch Goal (bin):ok]' pivot='key' type='ordinal' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column caption='Relative Stretch Goal' datatype='real' name='[relative_stretch_goal]' role='measure' type='quantitative' />
           </datasource-dependencies>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='false' />
         </view>
         <style />
@@ -2042,20 +2066,11 @@
             <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column caption='Percentage Of Goal Stretch' datatype='real' name='[percentage_of_goal_stretch]' role='measure' type='quantitative' />
             <column caption='Relative Stretch Goal' datatype='real' name='[relative_stretch_goal]' role='measure' type='quantitative' />
             <column-instance column='[percentage_of_goal_stretch]' derivation='Sum' name='[sum:percentage_of_goal_stretch:qk]' pivot='key' type='quantitative' />
             <column-instance column='[relative_stretch_goal]' derivation='Sum' name='[sum:relative_stretch_goal:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='false' />
         </view>
         <style />
@@ -2080,13 +2095,7 @@
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
             <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[funding_raised]' derivation='None' name='[none:funding_raised:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column caption='Relative Stretch Goal' datatype='real' name='[relative_stretch_goal]' role='measure' type='quantitative' />
             <column-instance column='[funding_raised]' derivation='Sum' name='[sum:funding_raised:qk]' pivot='key' type='quantitative' />
             <column-instance column='[relative_stretch_goal]' derivation='Sum' name='[sum:relative_stretch_goal:qk]' pivot='key' type='quantitative' />
@@ -2097,7 +2106,6 @@
           </filter>
           <slices>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:funding_raised:qk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
           </slices>
           <aggregation value='false' />
         </view>
@@ -2115,11 +2123,52 @@
       </table>
       <simple-id uuid='{1A606FF8-AADB-4DA0-82F5-633C095E0FE2}' />
     </worksheet>
+    <worksheet name='Sheet 32'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
+          </datasources>
+          <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
+            <column aggregation='None' datatype='integer' name='[Funding Goal (bin)]' role='dimension' type='quantitative'>
+              <calculation class='bin' decimals='3' formula='[funding_goal]' peg='0' size='1000' />
+            </column>
+            <column-instance column='[funding_goal]' derivation='Count' name='[cnt:funding_goal:qk]' pivot='key' type='quantitative' />
+            <column caption='Funding Goal' datatype='real' name='[funding_goal]' role='measure' type='quantitative' />
+            <column-instance column='[Funding Goal (bin)]' derivation='None' name='[none:Funding Goal (bin):qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:Funding Goal (bin):qk]' included-values='in-range'>
+            <min>0</min>
+            <max>176</max>
+          </filter>
+          <slices>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:Funding Goal (bin):qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <mark-sizing custom-mark-size-in-axis-units='1.0' mark-alignment='mark-alignment-left' mark-sizing-setting='marks-scaling-on' use-custom-mark-size='false' />
+          </pane>
+        </panes>
+        <rows>[federated.031ert70n4gx5m1g20wpb0zbjttq].[cnt:funding_goal:qk]</rows>
+        <cols>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:Funding Goal (bin):qk]</cols>
+        <show-full-range>
+          <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Funding Goal (bin)]</column>
+        </show-full-range>
+      </table>
+      <simple-id uuid='{2702DF08-AC24-408D-B109-C4DA1F7F55D8}' />
+    </worksheet>
     <worksheet name='Topics'>
       <layout-options>
         <title>
           <formatted-text>
-            <run fontalignment='1' fontcolor='#ffffff'>&lt;Sheet Name&gt;</run>
+            <run fontcolor='#f1ce63' fontname='Tableau Medium' fontsize='9'>Select by topic:</run>
           </formatted-text>
         </title>
       </layout-options>
@@ -2144,20 +2193,24 @@
             <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
             <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
+            <column-instance column='[year]' derivation='Year' name='[yr:year:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]'>
-            <groupfilter function='level-members' level='[location]' user:ui-action-filter='[Action1_000DA2DB09D842CA8CDE1B8D563DADE1]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' filter-group='4'>
             <groupfilter function='level-members' level='[attr:Year (copy)_754071485320359937:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' filter-group='6'>
+            <groupfilter function='level-members' level='[none:location:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]' filter-group='5'>
+            <groupfilter function='level-members' level='[yr:year:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.031ert70n4gx5m1g20wpb0zbjttq].[ctd:project_id:qk]' shelf='rows' />
           </shelf-sorts>
           <slices>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Location)]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -2173,11 +2226,15 @@
             <format attr='height' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' value='24' />
             <format attr='color' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[ctd:project_id:qk]' value='#ffffff' />
             <format attr='color' data-class='subtotal' value='#ffffff' />
+            <format attr='border-width' value='1' />
+            <format attr='border-style' value='solid' />
           </style-rule>
           <style-rule element='header'>
             <format attr='background-color' value='#000000' />
             <format attr='background-color' field='[federated.031ert70n4gx5m1g20wpb0zbjttq].[ctd:project_id:qk]' value='#000000' />
             <format attr='background-color' scope='cols' value='#00000000' />
+            <format attr='border-width' value='0' />
+            <format attr='border-style' value='none' />
           </style-rule>
           <style-rule element='field-labels'>
             <format attr='color' value='#ffffff' />
@@ -2196,7 +2253,9 @@
             <format attr='color' value='#ffffff' />
           </style-rule>
           <style-rule element='gridline'>
+            <format attr='line-pattern-only' value='solid' />
             <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
           </style-rule>
         </style>
         <panes>
@@ -2233,18 +2292,9 @@
               <calculation class='bin' decimals='2' formula='[word_count_description]' peg='0' size='196' />
             </column>
             <column-instance column='[word_count_description]' derivation='Count' name='[cnt:word_count_description:qk]' pivot='key' type='quantitative' />
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[Word Count Description (bin)]' derivation='None' name='[none:Word Count Description (bin):qk]' pivot='key' type='quantitative' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column caption='Word Count Description' datatype='integer' name='[word_count_description]' role='measure' type='quantitative' />
           </datasource-dependencies>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -2272,20 +2322,11 @@
             <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
           </datasources>
           <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-            <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
-              <semantic-values semantic-role='[Country].[Name]'>
-                <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
-              </semantic-values>
-            </column>
             <column-instance column='[word_count_description]' derivation='Median' name='[med:word_count_description:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
             <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
             <column caption='Word Count Description' datatype='integer' name='[word_count_description]' role='measure' type='quantitative' />
             <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
           </datasource-dependencies>
-          <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
-          </slices>
           <aggregation value='true' />
         </view>
         <style />
@@ -2334,21 +2375,29 @@
             <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
             <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
+            <column-instance column='[year]' derivation='Year' name='[yr:year:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]'>
-            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action3_7C0D920FBA3B407BA5DB7A046C83FD89]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action2_2847161716294D399DE21BD56AD14D59]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' filter-group='4'>
             <groupfilter function='level-members' level='[attr:Year (copy)_754071485320359937:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' filter-group='6'>
+            <groupfilter function='level-members' level='[none:location:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' filter-group='3'>
             <groupfilter function='level-members' level='[none:topic:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]' filter-group='5'>
+            <groupfilter function='level-members' level='[yr:year:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
+            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -2674,16 +2723,11 @@
             <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
           </datasource-dependencies>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]'>
-            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action3_7C0D920FBA3B407BA5DB7A046C83FD89]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' filter-group='3'>
             <groupfilter function='level-members' level='[none:topic:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -3010,16 +3054,11 @@
             <column caption='Project Id' datatype='integer' name='[project_id]' role='dimension' type='ordinal' />
             <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
           </datasource-dependencies>
-          <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]'>
-            <groupfilter function='level-members' level='[topic]' user:ui-action-filter='[Action3_7C0D920FBA3B407BA5DB7A046C83FD89]' user:ui-enumeration='all' user:ui-marker='enumerate' />
-          </filter>
           <filter class='categorical' column='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' filter-group='3'>
             <groupfilter function='level-members' level='[none:topic:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
           </filter>
           <slices>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]</column>
             <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]</column>
-            <column>[federated.031ert70n4gx5m1g20wpb0zbjttq].[Action (Topic)]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -3142,13 +3181,13 @@
     </worksheet>
   </worksheets>
   <dashboards>
-    <dashboard _.fcp.AccessibleZoneTabOrder.true...enable-sort-zone-taborder='true' name='DASHBOARD TEST'>
+    <dashboard _.fcp.AccessibleZoneTabOrder.true...enable-sort-zone-taborder='true' name='DASHBOARD'>
       <layout-options>
         <title>
           <formatted-text>
             <run bold='true' fontalignment='1' fontcolor='#f1ce63'>FUNDRAISING FOR SOCIAL PROJECTS</run>
             <run fontalignment='1'>Æ&#10;</run>
-            <run fontalignment='1' fontcolor='#f1ce63' fontsize='10'>startsomegood.com (2011-2019)</run>
+            <run fontalignment='1' fontcolor='#f1ce63' fontsize='10'>startsomegood.com (2011-2020)</run>
           </formatted-text>
         </title>
       </layout-options>
@@ -3176,37 +3215,35 @@
         <datasource caption='Fundraising for social projects' name='federated.031ert70n4gx5m1g20wpb0zbjttq' />
       </datasources>
       <datasource-dependencies datasource='Parameters'>
-        <column alias='Mean' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;1&quot;'>
-          <calculation class='tableau' formula='&quot;1&quot;' />
+        <column alias='Median' caption='Choose measure' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;0&quot;'>
+          <calculation class='tableau' formula='&quot;0&quot;' />
           <aliases>
             <alias key='&quot;0&quot;' value='Median' />
             <alias key='&quot;1&quot;' value='Mean' />
+            <alias key='&quot;2&quot;' value='Total' />
           </aliases>
           <members>
             <member alias='Median' value='&quot;0&quot;' />
             <member alias='Mean' value='&quot;1&quot;' />
+            <member alias='Total' value='&quot;2&quot;' />
           </members>
         </column>
       </datasource-dependencies>
       <datasource-dependencies datasource='federated.031ert70n4gx5m1g20wpb0zbjttq'>
-        <column caption='Year (categorical)' datatype='string' datatype-customized='true' name='[Year (copy)_754071485320359937]' role='dimension' type='nominal'>
-          <calculation class='tableau' formula='STR([year])' />
-        </column>
-        <column-instance column='[Year (copy)_754071485320359937]' derivation='Attribute' name='[attr:Year (copy)_754071485320359937:nk]' pivot='key' type='nominal' />
         <column caption='Location' datatype='string' name='[location]' role='dimension' semantic-role='[Country].[Name]' type='nominal'>
           <semantic-values semantic-role='[Country].[Name]'>
             <semantic-value key='&quot;Tibet&quot;' value='&quot;China&quot;' />
           </semantic-values>
         </column>
         <column-instance column='[location]' derivation='None' name='[none:location:nk]' pivot='key' type='nominal' />
-        <column-instance column='[topic]' derivation='None' name='[none:topic:nk]' pivot='key' type='nominal' />
-        <column caption='Topic' datatype='string' name='[topic]' role='dimension' type='nominal' />
+        <column caption='Year' datatype='datetime' name='[year]' role='dimension' type='quantitative' />
+        <column-instance column='[year]' derivation='Year' name='[yr:year:ok]' pivot='key' type='ordinal' />
       </datasource-dependencies>
       <zones>
         <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
           <zone h='97916' id='56' param='horz' type-v2='layout-flow' w='98828' x='586' y='1042'>
             <zone h='97916' id='50' param='vert' type-v2='layout-flow' w='98828' x='586' y='1042'>
-              <zone fixed-size='80' h='11459' id='25' is-fixed='true' type-v2='title' w='98828' x='586' y='1042'>
+              <zone fixed-size='113' h='15756' id='25' is-fixed='true' type-v2='title' w='98828' x='586' y='1042'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -3214,82 +3251,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='86457' id='38' param='horz' type-v2='layout-flow' w='98828' x='586' y='12501'>
-                <zone h='86457' id='5' type-v2='layout-basic' w='98828' x='586' y='12501'>
-                  <zone h='23430' id='3' name='Project details' w='98828' x='586' y='75528'>
-                    <zone-style>
-                      <format attr='border-color' value='#000000' />
-                      <format attr='border-style' value='none' />
-                      <format attr='border-width' value='0' />
-                      <format attr='margin' value='4' />
-                    </zone-style>
-                  </zone>
-                  <zone h='63027' id='28' name='World map funding raised w/o US, AUS' show-title='false' w='56586' x='24962' y='12501'>
-                    <zone-style>
-                      <format attr='border-color' value='#000000' />
-                      <format attr='border-style' value='none' />
-                      <format attr='border-width' value='0' />
-                      <format attr='margin' value='4' />
-                    </zone-style>
-                  </zone>
-                  <zone h='10696' id='42' name='Funding goal' w='17866' x='81548' y='52736'>
-                    <zone-style>
-                      <format attr='border-color' value='#000000' />
-                      <format attr='border-style' value='none' />
-                      <format attr='border-width' value='0' />
-                      <format attr='margin' value='4' />
-                    </zone-style>
-                  </zone>
-                  <zone h='63027' id='43' name='Topics' w='24376' x='586' y='12501'>
-                    <zone-style>
-                      <format attr='border-color' value='#000000' />
-                      <format attr='border-style' value='none' />
-                      <format attr='border-width' value='0' />
-                      <format attr='margin' value='4' />
-                    </zone-style>
-                  </zone>
-                  <zone h='12224' id='46' name='Funding raised' w='17866' x='81548' y='40512'>
-                    <zone-style>
-                      <format attr='border-color' value='#000000' />
-                      <format attr='border-style' value='none' />
-                      <format attr='border-width' value='0' />
-                      <format attr='margin' value='4' />
-                    </zone-style>
-                  </zone>
-                  <zone h='11078' id='47' name='Projects' w='17866' x='81548' y='29434'>
-                    <zone-style>
-                      <format attr='border-color' value='#000000' />
-                      <format attr='border-style' value='none' />
-                      <format attr='border-width' value='0' />
-                      <format attr='margin' value='4' />
-                    </zone-style>
-                  </zone>
-                  <zone h='12096' id='48' name='Funding achieved' w='17866' x='81548' y='63432'>
-                    <zone-style>
-                      <format attr='border-color' value='#000000' />
-                      <format attr='border-style' value='none' />
-                      <format attr='border-width' value='0' />
-                      <format attr='margin' value='4' />
-                    </zone-style>
-                  </zone>
-                  <zone h='8274' id='11' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' type-v2='filter' values='relevant' w='17866' x='81548' y='12501'>
-                    <zone-style>
-                      <format attr='border-color' value='#000000' />
-                      <format attr='border-style' value='none' />
-                      <format attr='border-width' value='0' />
-                      <format attr='margin' value='4' />
-                    </zone-style>
-                  </zone>
-                  <zone h='8659' id='18' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' type-v2='filter' values='database' w='17866' x='81548' y='20775'>
-                    <zone-style>
-                      <format attr='border-color' value='#000000' />
-                      <format attr='border-style' value='none' />
-                      <format attr='border-width' value='0' />
-                      <format attr='margin' value='4' />
-                    </zone-style>
-                  </zone>
-                </zone>
-              </zone>
+              <zone h='82160' id='38' param='horz' type-v2='layout-flow' w='98828' x='586' y='16798' />
             </zone>
           </zone>
           <zone-style>
@@ -3299,12 +3261,26 @@
             <format attr='margin' value='8' />
           </zone-style>
         </zone>
-        <zone h='8203' id='8' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' type-v2='filter' values='relevant' w='17277' x='81772' y='3646' />
-        <zone custom-title='true' h='7161' id='57' mode='compact' param='[Parameters].[Parameter 1]' type-v2='paramctrl' w='18082' x='1391' y='2995'>
+        <zone h='8203' id='8' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' type-v2='filter' values='relevant' w='23719' x='805' y='11198' />
+        <zone custom-title='true' h='7161' id='57' mode='compact' param='[Parameters].[Parameter 1]' type-v2='paramctrl' w='23646' x='75549' y='1432'>
           <formatted-text>
-            <run>Select central tendency:</run>
+            <run>Select measure of interest:</run>
           </formatted-text>
         </zone>
+        <zone h='59896' id='43' name='Topics' w='23646' x='805' y='20313'>
+          <zone-style>
+            <format attr='border-color' value='#f5f5f5' />
+            <format attr='border-style' value='solid' />
+            <format attr='border-width' value='1' />
+          </zone-style>
+        </zone>
+        <zone h='57292' id='28' name='World map funding raised w/o US, AUS' show-title='false' w='48975' x='25915' y='16927' />
+        <zone h='10156' id='42' name='Funding goal' w='11201' x='75549' y='31250' />
+        <zone h='11719' id='48' name='No.  of supporters' w='11347' x='75769' y='43620' />
+        <zone h='10417' id='46' name='Funding raised' w='11640' x='87701' y='31380' />
+        <zone h='22786' id='3' name='Project details' w='98755' x='586' y='76302' />
+        <zone h='12630' id='47' name='No. of projects' w='22840' x='75476' y='16927' />
+        <zone h='8984' id='80' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]' type-v2='filter' values='database' w='23719' x='732' y='1172' />
       </zones>
       <devicelayouts>
         <devicelayout name='Desktop'>
@@ -3316,15 +3292,15 @@
               <formatted-text>
                 <run bold='true' fontalignment='1' fontcolor='#f1ce63'>FUNDRAISING FOR SOCIAL PROJECTS</run>
                 <run fontalignment='1'>Æ&#10;</run>
-                <run fontalignment='1' fontcolor='#f1ce63' fontsize='10'>startsomegood.com (2011-2019)</run>
+                <run fontalignment='1' fontcolor='#f1ce63' fontsize='10'>startsomegood.com (2011-2020)</run>
               </formatted-text>
             </title>
           </layout-options>
-          <size maxheight='1450' minheight='1450' sizing-mode='vscroll' />
+          <size maxheight='1400' minheight='1400' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='69' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='97916' id='68' param='vert' type-v2='layout-flow' w='98828' x='586' y='1042'>
-                <zone fixed-size='80' h='11459' id='25' type-v2='title' w='98828' x='586' y='1042'>
+            <zone h='100000' id='90' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='97916' id='89' param='vert' type-v2='layout-flow' w='98828' x='586' y='1042'>
+                <zone fixed-size='113' h='15756' id='25' type-v2='title' w='98828' x='586' y='1042'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -3333,9 +3309,9 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone custom-title='true' h='7161' id='57' mode='compact' param='[Parameters].[Parameter 1]' type-v2='paramctrl' w='18082' x='1391' y='2995'>
+                <zone custom-title='true' h='7161' id='57' mode='compact' param='[Parameters].[Parameter 1]' type-v2='paramctrl' w='23646' x='75549' y='1432'>
                   <formatted-text>
-                    <run>Select central tendency:</run>
+                    <run>Select measure of interest:</run>
                   </formatted-text>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -3345,7 +3321,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='280' h='63027' id='43' is-fixed='true' name='Topics' w='24376' x='586' y='12501'>
+                <zone fixed-size='280' h='57292' id='28' is-fixed='true' name='World map funding raised w/o US, AUS' show-title='false' w='48975' x='25915' y='16927'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -3354,7 +3330,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='280' h='63027' id='28' is-fixed='true' name='World map funding raised w/o US, AUS' show-title='false' w='56586' x='24962' y='12501'>
+                <zone fixed-size='97' h='12630' id='47' is-fixed='true' name='No. of projects' w='22840' x='75476' y='16927'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -3363,7 +3339,16 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='77' h='11078' id='47' is-fixed='true' name='Projects' w='17866' x='81548' y='29434'>
+                <zone fixed-size='280' h='59896' id='43' is-fixed='true' name='Topics' w='23646' x='805' y='20313'>
+                  <zone-style>
+                    <format attr='border-color' value='#f5f5f5' />
+                    <format attr='border-style' value='solid' />
+                    <format attr='border-width' value='1' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='78' h='10156' id='42' is-fixed='true' name='Funding goal' w='11201' x='75549' y='31250'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -3372,7 +3357,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='86' h='12224' id='46' is-fixed='true' name='Funding raised' w='17866' x='81548' y='40512'>
+                <zone fixed-size='80' h='10417' id='46' is-fixed='true' name='Funding raised' w='11640' x='87701' y='31380'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -3381,7 +3366,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='74' h='10696' id='42' is-fixed='true' name='Funding goal' w='17866' x='81548' y='52736'>
+                <zone fixed-size='90' h='11719' id='48' is-fixed='true' name='No.  of supporters' w='11347' x='75769' y='43620'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -3390,7 +3375,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone fixed-size='85' h='12096' id='48' is-fixed='true' name='Funding achieved' w='17866' x='81548' y='63432'>
+                <zone h='8203' id='8' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' type-v2='filter' values='relevant' w='23719' x='805' y='11198'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -3399,7 +3384,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8274' id='11' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:topic:nk]' type-v2='filter' values='relevant' w='17866' x='81548' y='12501'>
+                <zone h='8984' id='80' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[yr:year:ok]' type-v2='filter' values='database' w='23719' x='732' y='1172'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -3408,25 +3393,7 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='8659' id='18' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[attr:Year (copy)_754071485320359937:nk]' type-v2='filter' values='database' w='17866' x='81548' y='20775'>
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone h='8203' id='8' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' type-v2='filter' values='relevant' w='17277' x='81772' y='3646'>
-                  <zone-style>
-                    <format attr='border-color' value='#000000' />
-                    <format attr='border-style' value='none' />
-                    <format attr='border-width' value='0' />
-                    <format attr='margin' value='4' />
-                    <format attr='padding' value='0' />
-                  </zone-style>
-                </zone>
-                <zone fixed-size='172' h='23430' id='3' is-fixed='true' name='Project details' w='98828' x='586' y='75528'>
+                <zone fixed-size='175' h='22786' id='3' is-fixed='true' name='Project details' w='98755' x='586' y='76302'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -3456,8 +3423,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='700' minheight='700' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='16' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='84000' id='15' param='vert' type-v2='layout-flow' w='84000' x='8000' y='8000' />
+            <zone h='100000' id='36' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='35' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000' />
               <zone-style>
                 <format attr='border-color' value='#000000' />
                 <format attr='border-style' value='none' />
@@ -3471,7 +3438,7 @@
       <simple-id uuid='{2CFB1C76-8DE0-4F4C-BE85-DF96E38E9DC9}' />
     </dashboard>
   </dashboards>
-  <windows source-height='37'>
+  <windows saved-dpi-scale-factor='1.25' source-height='37'>
     <window class='worksheet' name='Fund raising median x topic'>
       <cards>
         <edge name='left'>
@@ -3587,7 +3554,7 @@
       </cards>
       <simple-id uuid='{62DF731E-9C93-4EAE-9FD2-48BABD1F5717}' />
     </window>
-    <window class='worksheet' maximized='true' name='World map funding raised w/o US, AUS'>
+    <window class='worksheet' name='World map funding raised w/o US, AUS'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -4149,7 +4116,7 @@
       </cards>
       <simple-id uuid='{52FEFC0C-5399-4F00-A305-A0726B619F8C}' />
     </window>
-    <window class='worksheet' name='Projects'>
+    <window class='worksheet' name='No. of projects'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -4172,7 +4139,7 @@
       </cards>
       <simple-id uuid='{B630AC07-E535-4267-8B2E-61BFA697731B}' />
     </window>
-    <window class='worksheet' name='Funding achieved'>
+    <window class='worksheet' name='No.  of supporters'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -4200,22 +4167,22 @@
       </cards>
       <simple-id uuid='{645428C0-7449-4AAF-A2D2-E42CD5B5B589}' />
     </window>
-    <window class='dashboard' name='DASHBOARD TEST'>
+    <window class='dashboard' maximized='true' name='DASHBOARD'>
       <viewpoints>
-        <viewpoint name='Funding achieved'>
-          <zoom type='entire-view' />
-        </viewpoint>
         <viewpoint name='Funding goal'>
           <zoom type='entire-view' />
         </viewpoint>
         <viewpoint name='Funding raised'>
           <zoom type='entire-view' />
         </viewpoint>
+        <viewpoint name='No.  of supporters'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='No. of projects'>
+          <zoom type='entire-view' />
+        </viewpoint>
         <viewpoint name='Project details'>
           <zoom type='fit-width' />
-        </viewpoint>
-        <viewpoint name='Projects'>
-          <zoom type='entire-view' />
         </viewpoint>
         <viewpoint name='Topics' />
         <viewpoint name='World map funding raised w/o US, AUS'>
@@ -4223,13 +4190,92 @@
           <default-map-tool-selection tool='1' />
         </viewpoint>
       </viewpoints>
-      <active id='28' />
+      <active id='-1' />
       <simple-id uuid='{035265DB-242A-4EDD-8097-21A4A4D722C0}' />
     </window>
     <window class='dashboard' name='Dashboard 2'>
       <viewpoints />
       <active id='-1' />
       <simple-id uuid='{BCD5BE49-1AA0-4A2A-B60A-6DE158ADD44F}' />
+    </window>
+    <window class='worksheet' name='No projects x funding goal ranges'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[avg:Calculation_130322937292988417:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{928E1EBF-9381-486E-B2A8-41F780ECF5A0}' />
+    </window>
+    <window class='worksheet' name='No projects x funding goal ranges (2)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='2' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[avg:Calculation_130322937292988417:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{FA2BE2F9-5A4F-47A8-8318-DEA228479FA8}' />
+    </window>
+    <window class='worksheet' name='Sheet 32'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{DB24CD14-FA3A-46C0-81F1-1365571A8F6A}' />
     </window>
   </windows>
 </workbook>
