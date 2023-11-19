@@ -707,6 +707,12 @@
           <style-rule element='axis'>
             <format attr='title' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' scope='rows' value='US Dollars' />
           </style-rule>
+          <style-rule element='label'>
+            <format attr='font-size' field='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' value='12' />
+            <format attr='font-weight' field='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' value='bold' />
+            <format attr='font-size' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' value='12' />
+            <format attr='font-weight' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' value='bold' />
+          </style-rule>
         </style>
         <panes>
           <pane selection-relaxation-option='selection-relaxation-allow'>
@@ -718,10 +724,6 @@
               <color column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' />
             </encodings>
             <trendline enable-confidence-bands='false' enable-instant-analytics='true' enabled='true' exclude-color='false' exclude-intercept='false' fit='linear' />
-            <reference-line axis-column='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' enable-instant-analytics='true' fill-above='false' fill-below='false' formula='confidence' id='refline0' label-type='none' paired-distribution-id='refline1' probability='95' scope='per-pane' show-lines='both' symmetric='false' value-column='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' z-order='1' />
-            <reference-line axis-column='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' enable-instant-analytics='true' formula='average' id='refline1' label-type='automatic' paired-distribution-id='refline0' probability='95' scope='per-pane' value-column='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' z-order='2' />
-            <reference-line axis-column='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' enable-instant-analytics='true' fill-above='false' fill-below='false' formula='confidence' id='refline2' label-type='none' paired-distribution-id='refline3' probability='95' scope='per-pane' show-lines='both' symmetric='false' value-column='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' z-order='3' />
-            <reference-line axis-column='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' enable-instant-analytics='true' formula='average' id='refline3' label-type='automatic' paired-distribution-id='refline2' probability='95' scope='per-pane' value-column='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' z-order='4' />
             <style>
               <style-rule element='mark'>
                 <format attr='mark-labels-show' value='false' />
@@ -769,6 +771,83 @@
       </table>
       <simple-id uuid='{59665322-0EDF-4463-810F-1EC3E55CE672}' />
     </worksheet>
+    <worksheet name='Funding X Year (3)'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontcolor='#000000'>Funding &quot;stretch goal&quot; x funding goal x actual funding raised</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='projects+' name='federated.1il29q2077y9av10h0tpu07vs575' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1il29q2077y9av10h0tpu07vs575'>
+            <column caption='Funding Goal' datatype='real' name='[funding_goal]' role='measure' type='quantitative' />
+            <column caption='Funding Goal Stretch Point' datatype='real' name='[funding_goal_stretch_point]' role='measure' type='quantitative' />
+            <column caption='Funding Raised' datatype='real' name='[funding_raised]' role='measure' type='quantitative' />
+            <column-instance column='[funding_goal]' derivation='Median' name='[med:funding_goal:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[funding_goal_stretch_point]' derivation='Median' name='[med:funding_goal_stretch_point:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[funding_raised]' derivation='Median' name='[med:funding_raised:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[year]' derivation='None' name='[none:year:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[funding_raised]' derivation='Sum' name='[sum:funding_raised:qk]' pivot='key' type='quantitative' />
+            <column caption='Year' datatype='integer' name='[year]' role='dimension' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal_stretch_point:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_raised:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal_stretch_point:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1il29q2077y9av10h0tpu07vs575].[sum:funding_raised:qk]&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' scope='rows' value='US Dollars' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='font-size' field='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' value='12' />
+            <format attr='font-weight' field='[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]' value='bold' />
+            <format attr='font-size' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' value='12' />
+            <format attr='font-weight' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]' value='bold' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <encodings>
+              <color column='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' />
+            </encodings>
+            <trendline enable-confidence-bands='false' enable-instant-analytics='true' enabled='true' exclude-color='false' exclude-intercept='false' fit='linear' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='false' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1il29q2077y9av10h0tpu07vs575].[Multiple Values]</rows>
+        <cols>[federated.1il29q2077y9av10h0tpu07vs575].[none:year:qk]</cols>
+      </table>
+      <simple-id uuid='{2DD8B942-6472-4F19-9447-4ABC78BCC230}' />
+    </worksheet>
     <worksheet name='Funding goal + %_raised'>
       <layout-options>
         <title>
@@ -809,23 +888,41 @@
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk]' scope='rows' value='Median funding goal ($)' />
+            <format attr='title' class='0' field='[federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk]' scope='rows' value='Avg. percentage of goal' />
+          </style-rule>
           <style-rule element='cell'>
             <format attr='width' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='71' />
             <format attr='font-weight' data-class='total' value='bold' />
             <format attr='font-size' data-class='total' value='12' />
             <format attr='text-format' field='[federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk]' value='p0%' />
+            <format attr='font-size' data-class='subtotal' value='9' />
           </style-rule>
           <style-rule element='header'>
             <format attr='background-color' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='#ffffff' />
             <format attr='color' data-class='subtotal' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='#000000' />
             <format attr='font-weight' data-class='subtotal' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='bold' />
             <format attr='font-weight' data-class='total' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='normal' />
+            <format attr='height-header' value='40' />
+          </style-rule>
+          <style-rule element='field-labels'>
+            <format attr='font-size' value='16' />
           </style-rule>
           <style-rule element='label'>
             <format attr='text-orientation' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='-90' />
-            <format attr='font-weight' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='bold' />
             <format attr='font-size' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='12' />
             <format attr='text-format' field='[federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk]' value='p0%' />
+            <format attr='font-size' field='[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk]' value='12' />
+            <format attr='font-weight' field='[federated.1il29q2077y9av10h0tpu07vs575].[med:funding_goal:qk]' value='bold' />
+            <format attr='font-size' field='[federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk]' value='12' />
+            <format attr='font-weight' field='[federated.1il29q2077y9av10h0tpu07vs575].[avg:percentage_of_goal:qk]' value='bold' />
+            <format attr='font-weight' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='bold' />
+            <format attr='font-family' field='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' value='Tableau Bold' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='font-size' value='12' />
+            <format attr='font-weight' value='bold' />
           </style-rule>
         </style>
         <panes>
@@ -880,7 +977,7 @@
             <style>
               <style-rule element='datalabel'>
                 <format attr='color-mode' value='auto' />
-                <format attr='font-size' value='10' />
+                <format attr='font-size' value='11' />
                 <format attr='font-weight' value='bold' />
               </style-rule>
               <style-rule element='mark'>
@@ -2297,12 +2394,9 @@
           <strip size='2147483647'>
             <card type='rows' />
           </strip>
-          <strip size='2147483647'>
-            <card type='title' />
-          </strip>
         </edge>
         <edge name='right'>
-          <strip size='160'>
+          <strip size='112'>
             <card pane-specification-id='4' param='[federated.1il29q2077y9av10h0tpu07vs575].[none:topic:nk]' type='color' />
           </strip>
         </edge>
@@ -2440,7 +2534,7 @@
       </viewpoint>
       <simple-id uuid='{0560FC45-FB79-4900-993A-22920713F524}' />
     </window>
-    <window class='worksheet' maximized='true' name='Map Topic X Country (2)'>
+    <window class='worksheet' name='Map Topic X Country (2)'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -2496,6 +2590,35 @@
         </edge>
       </cards>
       <simple-id uuid='{9B8BF996-065E-4653-BB1D-2ECF91407015}' />
+    </window>
+    <window class='worksheet' maximized='true' name='Funding X Year (3)'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='260'>
+            <card pane-specification-id='0' param='[federated.1il29q2077y9av10h0tpu07vs575].[:Measure Names]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{B67CA057-486D-44EE-9370-FB5F6B9154CD}' />
     </window>
     <window class='worksheet' name='Funding X Year (2)'>
       <cards>

@@ -1694,7 +1694,7 @@
             <format attr='text-align' value='center' />
           </style-rule>
           <style-rule element='table'>
-            <format attr='background-color' value='#ffaebb' />
+            <format attr='background-color' value='#ffc7d1' />
           </style-rule>
           <style-rule element='worksheet'>
             <format attr='font-size' value='12' />
@@ -1702,7 +1702,7 @@
             <format attr='color' value='#000000' />
           </style-rule>
           <style-rule element='title'>
-            <format attr='background-color' value='#ffaebb' />
+            <format attr='background-color' value='#ffc7d1' />
           </style-rule>
           <style-rule element='parameter-ctrl'>
             <format attr='background-color' value='#ced3db' />
@@ -3295,7 +3295,7 @@
       </layout-options>
       <style>
         <style-rule element='table'>
-          <format attr='background-color' value='#ffaebcaf' />
+          <format attr='background-color' value='#ffaebb' />
         </style-rule>
         <style-rule element='dash-title'>
           <format attr='color' value='#ffffff' />
@@ -3361,7 +3361,7 @@
           </zone-style>
         </zone>
         <zone forceUpdate='true' h='71354' id='91' is-centered='0' is-scaled='1' param='C:/Users/Juliane/Documents/GitHub/fundraising_social_working_repo/Background.png' type-v2='bitmap' w='48755' x='25915' y='49740' />
-        <zone h='75260' id='92' is-centered='0' is-scaled='1' param='C:/Users/Juliane/Documents/GitHub/fundraising_social_working_repo/Background.png' type-v2='bitmap' w='48389' x='26208' y='130' />
+        <zone h='75260' id='92' is-centered='0' is-scaled='1' param='C:/Users/Juliane/Documents/GitHub/fundraising_social_working_repo/Background.png' type-v2='bitmap' w='73572' x='26208' y='130' />
         <zone h='8203' id='8' mode='checkdropdown' name='Project details' param='[federated.031ert70n4gx5m1g20wpb0zbjttq].[none:location:nk]' type-v2='filter' values='relevant' w='23719' x='732' y='10677' />
         <zone custom-title='true' h='7161' id='57' mode='compact' param='[Parameters].[Parameter 1]' type-v2='paramctrl' w='23646' x='75549' y='1432'>
           <formatted-text>
@@ -4103,7 +4103,7 @@
       </cards>
       <simple-id uuid='{8882A2EA-9B6A-485E-BDFF-E0B1C6C467AB}' />
     </window>
-    <window class='worksheet' name='No supporters x year x topic'>
+    <window class='worksheet' maximized='true' name='No supporters x year x topic'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -4289,7 +4289,7 @@
       </cards>
       <simple-id uuid='{645428C0-7449-4AAF-A2D2-E42CD5B5B589}' />
     </window>
-    <window class='dashboard' maximized='true' name='DASHBOARD'>
+    <window class='dashboard' name='DASHBOARD'>
       <viewpoints>
         <viewpoint name='Funding goal'>
           <zoom type='entire-view' />
@@ -4312,7 +4312,7 @@
           <default-map-tool-selection tool='1' />
         </viewpoint>
       </viewpoints>
-      <active id='47' />
+      <active id='-1' />
       <simple-id uuid='{035265DB-242A-4EDD-8097-21A4A4D722C0}' />
     </window>
     <window class='dashboard' name='Dashboard 2'>

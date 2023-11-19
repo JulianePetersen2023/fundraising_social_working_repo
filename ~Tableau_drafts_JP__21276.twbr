@@ -1008,7 +1008,7 @@
               <style-rule element='mark'>
                 <format attr='mark-labels-cull' value='true' />
                 <format attr='size' value='8.6001138687133789' />
-                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-show' value='false' />
               </style-rule>
             </style>
           </_.fcp.Layers.true...pane>
@@ -1329,7 +1329,7 @@
       </cards>
       <simple-id uuid='{FCD2D092-B139-4FDE-A8CE-6CF8C466A575}' />
     </window>
-    <window class='worksheet' name='Topics X Funding'>
+    <window class='worksheet' maximized='true' name='Topics X Funding'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -1517,7 +1517,7 @@
       </viewpoint>
       <simple-id uuid='{0560FC45-FB79-4900-993A-22920713F524}' />
     </window>
-    <window class='worksheet' maximized='true' name='Map Topic X Country (2)'>
+    <window class='worksheet' name='Map Topic X Country (2)'>
       <cards>
         <edge name='left'>
           <strip size='160'>
